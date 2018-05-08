@@ -14,7 +14,7 @@ const devConfig = {
   authDomain: "prodobro-react-maryan.firebaseapp.com",
   databaseURL: "https://prodobro-react-maryan.firebaseio.com",
   projectId: "prodobro-react-maryan",
-  storageBucket: "",
+  storageBucket: "prodobro-react-maryan.appspot.com",
   messagingSenderId: "570301909299"
 };
 
@@ -26,8 +26,10 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
 
+const db = firebase.database();
 const auth = firebase.auth();
 
 export {
+  db,
   auth,
 };
