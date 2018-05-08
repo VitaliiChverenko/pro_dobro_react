@@ -15,8 +15,8 @@ const Navigation = () =>
 
 const NavigationAuth = () =>
   <ul>
-    <li><Link to={ routes.NEWS }>News</Link></li>
     <li><Link to={ routes.CAMPAIGNS }>Campaigns</Link></li>
+    <li><Link to={ routes.NEWS }>News</Link></li>
     <li><Link to={ routes.CONTACTS }>Contacts</Link></li>
     <li><Link to={ routes.ABOUT_US }>About us</Link></li>
     <li><SignOutButton /></li>
@@ -24,6 +24,7 @@ const NavigationAuth = () =>
 
 const NavigationNonAuth = () =>
   <ul>
+    <li><Link to={ routes.CAMPAIGNS }>Campaigns</Link></li>
     <li><Link to={ routes.NEWS }>News</Link></li>
     <li><Link to={ routes.SIGN_IN }>Sign in</Link></li>
   </ul>

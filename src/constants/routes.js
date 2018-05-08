@@ -4,4 +4,4 @@ export const ABOUT_US = '/aboutus';
 export const NEWS = '/news';
 export const ACCOUNT = '/account';
 export const CONTACTS = '/contacts';
-export const CAMPAIGNS = '/campaigns'
+export const CAMPAIGNS = '/campaigns';
