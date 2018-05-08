@@ -10,12 +10,12 @@ const prodConfig = {
 };
 
 const devConfig = {
-  apiKey: "AIzaSyBKM6zN8cz2VMgEiNnVCKuyWlwvXB2jdxY",
-  authDomain: "prodobro-react-maryan.firebaseapp.com",
-  databaseURL: "https://prodobro-react-maryan.firebaseio.com",
-  projectId: "prodobro-react-maryan",
-  storageBucket: "prodobro-react-maryan.appspot.com",
-  messagingSenderId: "570301909299"
+  apiKey: "AIzaSyAcgJ9lC3i3R5gItMe2vMH7faN-P9sDIZM",
+  authDomain: "pro-dobro-react.firebaseapp.com",
+  databaseURL: "https://pro-dobro-react.firebaseio.com",
+  projectId: "pro-dobro-react",
+  storageBucket: "pro-dobro-react.appspot.com",
+  messagingSenderId: "729664132823"
 };
 
 const config = process.env.NODE_ENV === 'production'
