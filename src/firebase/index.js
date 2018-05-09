@@ -5,7 +5,7 @@ import * as dbNews from './dbNews';
 
 import * as dbCampaigns from './dbCampaigns';
 
-import * as dbContacts from './db.contacts';
+import * as dbContacts from './dbСontacts';
 
 export {
   auth,

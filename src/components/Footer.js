@@ -4,7 +4,7 @@ import * as routes from '../constants/routes';
 
 const Footer = () => {
   return(
-    <div class="ui inverted vertical footer segment sixteen wide column grid">
+    <div class="ui inverted vertical footer segment sixteen wide column grid no-margin">
       <div class="one wide column">
       </div>
       <div class="four wide column">

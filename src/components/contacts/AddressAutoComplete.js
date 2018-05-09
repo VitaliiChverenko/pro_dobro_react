@@ -5,7 +5,8 @@ import GoogleAPIkey from '../../constants/google.config'
 import './AddressAutoComplete.css';
 
 const AddressAutoComplete = props =>{
-  return <div className='ui input address-autocomplete labeled'>
+  return (
+  <div className='ui input address-autocomplete labeled'>
   <div class="ui label label">Address</div>
   <Autocomplete
     onPlaceSelected={place => {
@@ -21,9 +22,10 @@ const AddressAutoComplete = props =>{
     placeholder={props.address}
     types={['address']}/>
     </div>
+  )
 }
 
 export default GoogleApiWrapper({
-    apiKey: GoogleAPIkey,
-    libraries: ['places']
-  })(AddressAutoComplete)
+  apiKey: GoogleAPIkey,
+  libraries: ['places']
+})(AddressAutoComplete)

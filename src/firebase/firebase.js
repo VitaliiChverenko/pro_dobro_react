@@ -10,12 +10,12 @@ const prodConfig = {
 };
 
 const devConfig = {
-  apiKey: "AIzaSyAcgJ9lC3i3R5gItMe2vMH7faN-P9sDIZM",
-  authDomain: "pro-dobro-react.firebaseapp.com",
-  databaseURL: "https://pro-dobro-react.firebaseio.com",
-  projectId: "pro-dobro-react",
-  storageBucket: "pro-dobro-react.appspot.com",
-  messagingSenderId: "729664132823"
+  apiKey: "AIzaSyCDabEcMJoECANFztMAFR1QHP5F2RtP734",
+  authDomain: "my-project-1524491292303.firebaseapp.com",
+  databaseURL: "https://my-project-1524491292303.firebaseio.com",
+  projectId: "my-project-1524491292303",
+  storageBucket: "my-project-1524491292303.appspot.com",
+  messagingSenderId: "1071962609750"
 };
 
 const config = process.env.NODE_ENV === 'production'
@@ -28,10 +28,8 @@ if (!firebase.apps.length) {
 
 const db = firebase.database();
 const auth = firebase.auth();
-const db = firebase.database();
 
 export {
   db,
   auth,
-  db
 };
