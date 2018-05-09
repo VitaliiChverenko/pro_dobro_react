@@ -1,0 +1,50 @@
+.news-wrapper{
+  min-height: 300px;
+}
+.news-wrapper .dimmable{
+  min-height: 300px;
+}
+h2.no-news{
+  padding-top: 130px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+.news-pic-box{
+  height: 300px;
+  width: 100%;
+  position: absolute;    
+  background-position: center;
+  background-size: cover;
+}
+.news-description{
+  height: 300px;
+  overflow: hidden;  
+}
+.show-news-btn{
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
+.news-description p {
+  max-height: 11.1em;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.created-at{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 5px 10px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.4);
+}
+.created-at span{
+  font-weight: 300;
+  font-size: 12px;
+}
+.ui.grid > .column.news-pic-wrapper{
+  padding: 0;
+}
