@@ -10,12 +10,12 @@ const prodConfig = {
 };
 
 const devConfig = {
-  apiKey: "AIzaSyCDabEcMJoECANFztMAFR1QHP5F2RtP734",
-  authDomain: "my-project-1524491292303.firebaseapp.com",
-  databaseURL: "https://my-project-1524491292303.firebaseio.com",
-  projectId: "my-project-1524491292303",
-  storageBucket: "my-project-1524491292303.appspot.com",
-  messagingSenderId: "1071962609750"
+  apiKey:
+  authDomain: "prodobro-333b7.firebaseapp.com",
+  databaseURL: "https://prodobro-333b7.firebaseio.com",
+  projectId: "prodobro-333b7",
+  storageBucket: "prodobro-333b7.appspot.com",
+  messagingSenderId: "338658986177"
 };
 
 const config = process.env.NODE_ENV === 'production'
@@ -26,9 +26,8 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
 
-const db = firebase.database();
 const auth = firebase.auth();
-
+const db = firebase.database();
 export {
   db,
   auth,

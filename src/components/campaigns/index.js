@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import CampaignItem from './item';
 import { dbCampaigns } from '../../firebase';
-
+import CreateCampaign from './CreateCampaign';
 export default class CampaignsIndex extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       campaigns: []
     }
@@ -24,6 +23,7 @@ export default class CampaignsIndex extends Component {
               <CampaignItem key={key} campaign={campaign} />
           )}
         </div>
+        <CreateCampaign items={this.state.campaigns} />
       </div>
     );
   }
