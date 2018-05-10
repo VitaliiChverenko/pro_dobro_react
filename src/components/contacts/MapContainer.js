@@ -9,8 +9,7 @@ export class MapContainer extends React.Component {
         <Map google={this.props.google}
           center={this.props.coords}
           zoom={15}
-          style={{height:"500px"}}
-          scrollwheel={false}>
+          style={{height:"500px", width:'90%'}}>
           <Marker
             name={'softserve'}
             position={this.props.coords} />
