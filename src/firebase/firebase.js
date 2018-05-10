@@ -10,7 +10,7 @@ const prodConfig = {
 };
 
 const devConfig = {
-  apiKey:
+  apiKey: "",
   authDomain: "prodobro-333b7.firebaseapp.com",
   databaseURL: "https://prodobro-333b7.firebaseio.com",
   projectId: "prodobro-333b7",
@@ -26,9 +26,12 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
 
-const auth = firebase.auth();
 const db = firebase.database();
+const storage = firebase.storage();
+const auth = firebase.auth();
+
 export {
   db,
+  storage,
   auth,
 };

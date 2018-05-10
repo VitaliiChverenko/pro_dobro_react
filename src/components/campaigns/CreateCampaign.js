@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firebase, dbCampaigns } from '../../firebase';
+import { dbCampaigns } from '../../firebase';
 import { Button, Form , Modal, Segment } from 'semantic-ui-react'
 
 class CreateCampaign extends Component {

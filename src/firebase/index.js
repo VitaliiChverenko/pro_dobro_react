@@ -8,9 +8,9 @@ import * as dbContacts from './dbСontacts';
 
 export {
   auth,
-  dbUsers,
-  dbNews,
   firebase,
+  dbNews,
   dbCampaigns,
   dbContacts,
+  dbUsers
 };

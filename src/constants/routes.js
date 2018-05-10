@@ -5,4 +5,4 @@ export const NEWS = '/news';
 export const ACCOUNT = '/account';
 export const CONTACTS = '/contacts';
 export const CAMPAIGNS = '/campaigns';
-export const SHOWNEWS = '/news:id(\d+)?'
+export const SHOWNEWS = '/news/:id'
