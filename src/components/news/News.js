@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import NewsItem from './NewsItem'
 import { dbNews } from '../../firebase';
+import CreateNews from './CreateNews';
 
 export default class NewsList extends Component{
   constructor(props){
     super(props)
     this.state = {
-      news: []
+      news: {}
     }
   }
 
   componentDidMount(){
     dbNews.onceGetNews().then(snapshot => {
-      this.setState(() => ({news: snapshot.val()}));
+      this.setState(() => ({news: snapshot.val() || {}}));
     })
   }
 
@@ -20,10 +21,11 @@ export default class NewsList extends Component{
     return(
       <div>
         {
-          this.state.news.map((event, key) =>
-            <NewsItem event = {event} key={key}/>
+          Object.keys(this.state.news).map(key =>
+            <NewsItem event = {this.state.news[key]} key={key}/>
           )
         }
+        <CreateNews />
       </div>
     )
   }
