@@ -9,7 +9,7 @@ class CreateNews extends Component {
     this.state = {
       showModal: false,
       title:'',
-      description:'',    
+      description:'',
       picture: '',
       isUploading: false,
       progress: 0,
@@ -65,11 +65,11 @@ class CreateNews extends Component {
 
   render() {
     const {title, description} = this.state;
-    const isEnabled = 
+    const isEnabled =
             title.length > 0 &&
             description.length > 0;
     return (
-      <Modal trigger={<Button onClick={() => this.setState({showModal: true})}>Create News</Button>} 
+      <Modal trigger={<Button onClick={() => this.setState({showModal: true})}>Create News</Button>}
       open={this.state.showModal} onClose={this.close}>
         <Modal.Header>Create News</Modal.Header>
         <Modal.Content image>
@@ -86,7 +86,7 @@ class CreateNews extends Component {
                   <p>Progress: {this.state.progress}</p>
                 }
                 {this.state.pictureURL &&
-                  <img src={this.state.pictureURL} />
+                  <img src={this.state.pictureURL} alt="news" />
                 }
                 <FileUploader
                   accept="image/*"
