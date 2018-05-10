@@ -27,10 +27,13 @@ class CreateCampaign extends Component {
       image: 'http://via.placeholder.com/350x150'
     }
     dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image)
-      .then(() => this.close())
+      .then(() => {
+        this.close();
+        this.props.onCreated();
+      })
   }
 
-  close(){
+  close = () => {
     this.setState({ showModal: false });
   }
 
@@ -38,14 +41,14 @@ class CreateCampaign extends Component {
     const {title, description, neededAmount} = this.state;
     const isEnabled = title.length && description.length && neededAmount.length;
     return (
-      <Modal trigger={<Button onClick={() => this.setState({showModal: true})}>Create Campaign</Button>} 
+      <Modal trigger={<Button className="ui inverted green button" onClick={() => this.setState({showModal: true})}>Create Campaign</Button>}
         open={this.state.showModal} onClose={this.close}>
         <Modal.Header>
           <h1>Create Campaign</h1>
         </Modal.Header>
         <Segment>
           <Form onSubmit={this.handleSubmit}>
-            <Form.Group widths='equal'>
+            <Form.Group widths="equal">
               <Form.Input label="Title" type="text" value={this.state.value} onChange={event => this.setState({title: event.target.value})} />
               <Form.Input label="Needed Amount" type="text" value={this.state.value} onChange={event => this.setState({neededAmount: event.target.value})} />
             </Form.Group>
