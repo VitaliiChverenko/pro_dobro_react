@@ -1,26 +1,26 @@
 import * as firebase from 'firebase';
 
-const prodConfig = {
-  apiKey: "AIzaSyAKvsH-vzQr8BH6nN4wI4AcWbIDoNbBxB4",
-  authDomain: "prodobro-react.firebaseapp.com",
-  databaseURL: "https://prodobro-react.firebaseio.com",
-  projectId: "prodobro-react",
-  storageBucket: "prodobro-react.appspot.com",
-  messagingSenderId: "114514007886"
+const config = {
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID
 };
 
-const devConfig = {
-  apiKey: "",
-  authDomain: "prodobro-333b7.firebaseapp.com",
-  databaseURL: "https://prodobro-333b7.firebaseio.com",
-  projectId: "prodobro-333b7",
-  storageBucket: "prodobro-333b7.appspot.com",
-  messagingSenderId: "338658986177"
-};
+// const devConfig = {
+//   apiKey: process.env.REACT_APP_FIREBASE_KEY,
+//   authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+//   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
+//   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+//   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+//   messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID
+//   };
 
-const config = process.env.NODE_ENV === 'production'
-  ? prodConfig
-  : devConfig;
+// const config = process.env.NODE_ENV === 'production'
+//   ? prodConfig
+//   : devConfig;
 
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
