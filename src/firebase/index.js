@@ -5,10 +5,13 @@ import * as dbNews from './dbNews';
 
 import * as dbCampaigns from './dbCampaigns';
 
+import * as dbContacts from './dbСontacts';
+
 export {
   auth,
   dbUsers,
   dbNews,
   firebase,
   dbCampaigns,
+  dbContacts,
 };
