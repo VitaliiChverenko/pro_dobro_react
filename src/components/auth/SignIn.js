@@ -7,8 +7,8 @@ import * as routes from '../../constants/routes';
 import { dbUsers } from '../../firebase';
 
 const SignIn = ({ history }) =>
-  <div class="ui three column centered grid">
-    <div class="column">
+  <div className="ui three column centered grid">
+    <div className="column">
       <h1>Sign In</h1>
       <SignInForm history={history} />
       <SignUpLink />
