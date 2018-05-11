@@ -14,6 +14,7 @@ const INITIAL_STATE = {
   firstname: '',
   lastname: '',
   email: '',
+  phone: '',
   passwordOne: '',
   passwordTwo: '',
   error: null,
@@ -35,6 +36,7 @@ class SignUpForm extends Component {
       firstname,
       lastname,
       email,
+      phone,
       passwordOne,
     } = this.state;
 
@@ -44,7 +46,7 @@ class SignUpForm extends Component {
 
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        dbUsers.doCreateUser(authUser.uid, firstname, lastname, email)
+        dbUsers.doCreateUser(authUser.uid, firstname, lastname, email, phone)
           .then(() => {
             this.setState(() => ({ ...INITIAL_STATE }));
             history.push(routes.NEWS);
@@ -67,7 +69,7 @@ class SignUpForm extends Component {
       email,
       passwordOne,
       passwordTwo,
-      error,
+      error
     } = this.state;
 
     const isInvalid =

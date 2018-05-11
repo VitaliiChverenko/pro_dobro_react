@@ -3,22 +3,21 @@ import { Link } from 'react-router-dom';
 
 import SignOutButton from './auth/SignOut';
 import * as routes from '../constants/routes';
-import AuthUserContext from './auth/AuthUserContext';
+import {connect} from 'react-redux';
 
-const Navigation = () =>
-  <AuthUserContext.Consumer>
-    {authUser => authUser
-      ? <NavigationAuth />
+const Navigation = (props) => {
+  return props.auth
+      ? <NavigationAuth email={props.auth.email}/>
       : <NavigationNonAuth />
-    }
-  </AuthUserContext.Consumer>
+}
 
-const NavigationAuth = () =>
+const NavigationAuth = (props) =>
   <ul>
     <li><Link to={ routes.CAMPAIGNS }>Campaigns</Link></li>
     <li><Link to={ routes.NEWS }>News</Link></li>
     <li><Link to={ routes.CONTACTS }>Contacts</Link></li>
     <li><Link to={ routes.ABOUT_US }>About us</Link></li>
+    <li><Link to={ routes.USERINFO }>{props.email}</Link></li>
     <li><SignOutButton /></li>
   </ul>
 
@@ -29,4 +28,8 @@ const NavigationNonAuth = () =>
     <li><Link to={ routes.SIGN_IN }>Sign in</Link></li>
   </ul>
 
-export default Navigation;
+export default connect(
+  state => ({
+    auth: state.auth
+  })
+)(Navigation);

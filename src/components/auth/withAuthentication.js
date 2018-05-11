@@ -1,35 +1,47 @@
 import React from 'react';
+import {connect} from 'react-redux'
+import { firebase, dbUsers } from '../../firebase';
+import {Dimmer, Segment} from 'semantic-ui-react'
 
-import AuthUserContext from './AuthUserContext';
-import { firebase } from '../../firebase';
-
-const withAuthentication = (Component) =>
-  class WithAuthentication extends React.Component {
+class WithAuthentication extends React.Component {
     constructor(props) {
       super(props);
 
       this.state = {
-        authUser: null,
+        loading: null,
       };
     }
 
     componentDidMount() {
       firebase.auth.onAuthStateChanged(authUser => {
-        authUser
-          ? this.setState(() => ({ authUser }))
-          : this.setState(() => ({ authUser: null }));
+        this.setState({loading: true});
+        if (authUser) {
+            dbUsers.doGetUser(authUser.uid).then(user => {
+              this.props.setUser(user.val());
+              this.setState({loading: false});
+            }, () => {
+              this.setState({loading: false});
+              this.props.setUser(null);
+            });
+        } else {
+          this.setState({loading: false});
+          this.props.setUser(null);
+        };
       });
     }
 
     render() {
-      const { authUser } = this.state;
-
-      return (
-        <AuthUserContext.Provider value={authUser}>
-          <Component />
-        </AuthUserContext.Provider>
-      );
+      return this.state.loading ? 
+      <Dimmer.Dimmable Dimmable as={Segment} dimmed={true}>
+        <Dimmer active={true} />
+        <div>{this.props.children}</div>
+      </Dimmer.Dimmable>
+     : this.props.children;
     }
-  }
-
-export default withAuthentication;
+}
+export default connect(
+  null,
+  dispatch => ({
+    setUser: user => dispatch({type:"SET_USER", payload: user})
+  })
+)(WithAuthentication);

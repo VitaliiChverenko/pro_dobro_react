@@ -14,6 +14,9 @@
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
     "semantic-ui-css": "2.2.14",
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.80.0"
   },
   "scripts": {
