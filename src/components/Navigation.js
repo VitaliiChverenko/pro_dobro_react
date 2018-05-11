@@ -5,28 +5,35 @@ import SignOutButton from './auth/SignOut';
 import * as routes from '../constants/routes';
 import {connect} from 'react-redux';
 
-const Navigation = (props) => {
+const Navigation = props => {
   return props.auth
       ? <NavigationAuth email={props.auth.email}/>
       : <NavigationNonAuth />
 }
 
 const NavigationAuth = (props) =>
-  <ul>
-    <li><Link to={ routes.CAMPAIGNS }>Campaigns</Link></li>
-    <li><Link to={ routes.NEWS }>News</Link></li>
-    <li><Link to={ routes.CONTACTS }>Contacts</Link></li>
-    <li><Link to={ routes.ABOUT_US }>About us</Link></li>
-    <li><Link to={ routes.USERINFO }>{props.email}</Link></li>
-    <li><SignOutButton /></li>
-  </ul>
+  <div className="ui breadcrumb position-right">
+    <a className="section"><Link to={ routes.CAMPAIGNS } className="ui small inverted grey header">Campaigns</Link></a>
+    <span className="ui inverted grey divider header">|</span>
+    <a className="section"><Link to={ routes.NEWS } className="ui small inverted grey header">News</Link></a>
+    <span className="ui inverted grey divider header">|</span>
+    <a className="section"><Link to={ routes.CONTACTS } className="ui small inverted grey header">Contacts</Link></a>
+    <span className="ui inverted grey divider header">|</span>
+    <a className="section"><Link to={ routes.ABOUT_US } className="ui small inverted grey header">About us</Link></a>
+    <span className="ui inverted grey divider header">| Login as : </span>
+    <a className="section"><Link to={ routes.USERINFO } className="ui small inverted grey header">{props.email}</Link></a>
+    <a className="position-btn"><SignOutButton /></a>
+  </div>
 
 const NavigationNonAuth = () =>
-  <ul>
-    <li><Link to={ routes.CAMPAIGNS }>Campaigns</Link></li>
-    <li><Link to={ routes.NEWS }>News</Link></li>
-    <li><Link to={ routes.SIGN_IN }>Sign in</Link></li>
-  </ul>
+  <div className="ui breadcrumb position-right">
+    <a className="section"><Link to={ routes.CAMPAIGNS } className="ui small inverted grey header">Campaigns</Link></a>
+    <span className="ui inverted grey divider header">|</span>
+    <a className="section"><Link to={ routes.NEWS } className="ui small inverted grey header">News</Link></a>
+    <span className="ui inverted grey divider header">|</span>
+    <a className="section"><Link to={ routes.CONTACTS } className="ui small inverted grey header">Contacts</Link></a>
+    <a className="position-btn"><Link to={ routes.SIGN_IN } className="ui inverted grey basic button">Sign in</Link></a>
+  </div>
 
 export default connect(
   state => ({

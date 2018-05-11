@@ -16,15 +16,17 @@ import WithAuthentication from './auth/withAuthentication';
 const App = () =>
 <WithAuthentication>
   <BrowserRouter>
-    <div>
+    <div className="all-content">
       <Header />
-      <Route exact path={ routes.CAMPAIGNS } component={CampaignsIndex} />
-      <Route exact path={ routes.NEWS } component={News} />
-      <Route exact path={ routes.CONTACTS } component={() => <ContactsPage />} />
-      <Route exact path={ routes.ABOUT_US } component={() => <h1>about us</h1>} />
-      <Route exact path={ routes.USERINFO } component={UserInfo} />
-      <Route exact path={ routes.SIGN_UP } component={() => <SignUp />} />
-      <Route exact path={ routes.SIGN_IN } component={() => <SignIn />} />
+      <div className="main-content">
+        <Route exact path={ routes.CAMPAIGNS } component={CampaignsIndex} />
+        <Route exact path={ routes.NEWS } component={News} />
+        <Route exact path={ routes.CONTACTS } component={() => <ContactsPage />} />
+        <Route exact path={ routes.ABOUT_US } component={() => <h1>about us</h1>} />
+        <Route exact path={ routes.USERINFO } component={UserInfo} />
+        <Route exact path={ routes.SIGN_UP } component={() => <SignUp />} />
+        <Route exact path={ routes.SIGN_IN } component={() => <SignIn />} />
+      </div>
       <Footer />
     </div>
   </BrowserRouter>
