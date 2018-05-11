@@ -6,3 +6,4 @@ export const ACCOUNT = '/account';
 export const CONTACTS = '/contacts';
 export const CAMPAIGNS = '/campaigns';
 export const SHOWNEWS = '/news/:id'
+export const USERINFO = '/userinfo'

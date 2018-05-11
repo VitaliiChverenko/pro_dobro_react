@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { SignUpLink } from './SignUp';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
+import { dbUsers } from '../../firebase';
 
 const SignIn = ({ history }) =>
   <div>
@@ -40,9 +41,11 @@ class SignInForm extends Component {
     } = this.props;
 
     auth.doSignInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.setState(() => ({ ...INITIAL_STATE }));
-        history.push(routes.NEWS);
+      .then((user) => {
+        dbUsers.doGetUser(user.uid).then(res => {
+          this.setState(() => ({ ...INITIAL_STATE }));
+          history.push(routes.NEWS);
+        })
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
@@ -87,7 +90,3 @@ class SignInForm extends Component {
 }
 
 export default withRouter(SignIn);
-
-export {
-  SignInForm,
-};
