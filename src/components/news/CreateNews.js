@@ -3,18 +3,20 @@ import { firebase, dbNews } from '../../firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import { Button, Form, Modal } from 'semantic-ui-react'
 
+const INIT_STATE = {
+  showModal: false,
+  title:'',
+  description:'',    
+  picture: '',
+  isUploading: false,
+  progress: 0,
+  pictureURL: ''
+};
+
 class CreateNews extends Component {
   constructor() {
     super();
-    this.state = {
-      showModal: false,
-      title:'',
-      description:'',
-      picture: '',
-      isUploading: false,
-      progress: 0,
-      pictureURL: ''
-    };
+    this.state = INIT_STATE ;
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handledescriptionChange = this.handledescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,7 +58,11 @@ class CreateNews extends Component {
       imageUrl: this.state.pictureURL
     }
     dbNews.doCreateNews(createdAt, news)
-      .then(() => this.close())
+      .then(() => {
+        this.close();
+        this.props.onCreated();
+        this.setState(INIT_STATE);
+      })
   }
 
   close(){
@@ -79,7 +85,7 @@ class CreateNews extends Component {
                 <input type="text" onChange={this.handleTitleChange} value={this.state.title} className="form-control" id="title" name="title" placeholder="Title" required />
               </Form.Field>
               <Form.Field>
-                <textarea className="form-control" onChange={this.handledescriptionChange} value={this.state.description} type="textarea" id="description" placeholder="description" maxLength={140} rows={7} />
+                <textarea className="form-control" onChange={this.handledescriptionChange} value={this.state.description} type="textarea" id="description" placeholder="description" maxLength={1400} rows={7} />
               </Form.Field>
               <Form.Field>
                 {this.state.isUploading &&
