@@ -7,10 +7,12 @@ import * as routes from '../../constants/routes';
 import { dbUsers } from '../../firebase';
 
 const SignIn = ({ history }) =>
-  <div>
-    <h1>SignIn</h1>
-    <SignInForm history={history} />
-    <SignUpLink />
+  <div className="ui three column centered grid">
+    <div className="column">
+      <h1>Sign In</h1>
+      <SignInForm history={history} />
+      <SignUpLink />
+    </div>
   </div>
 
 const byPropKey = (propertyName, value) => () => ({
@@ -66,20 +68,26 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          value={email}
-          onChange={event => this.setState(byPropKey('email', event.target.value))}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          value={password}
-          onChange={event => this.setState(byPropKey('password', event.target.value))}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
+      <form onSubmit={this.onSubmit} className="ui form">
+        <div className="field">
+          <label>Email</label>
+          <input
+            value={email}
+            onChange={event => this.setState(byPropKey('email', event.target.value))}
+            type="text"
+            placeholder="Email Address"
+          />
+        </div>
+        <div className="field">
+          <label>Password</label>
+          <input
+            value={password}
+            onChange={event => this.setState(byPropKey('password', event.target.value))}
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+        <button disabled={isInvalid} type="submit" className="ui button">
           Sign In
         </button>
 

@@ -5,9 +5,11 @@ import { auth, dbUsers } from '../../firebase';
 import * as routes from '../../constants/routes';
 
 const SignUp = ({ history }) =>
-  <div>
-    <h1>Sign Up</h1>
-    <SignUpForm history={history} />
+  <div className="ui three column centered grid">
+    <div className="column">
+      <h1>Sign Up</h1>
+      <SignUpForm history={history} />
+    </div>
   </div>
 
 const INITIAL_STATE = {
@@ -80,41 +82,55 @@ class SignUpForm extends Component {
       lastname === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          value={firstname}
-          onChange={event => this.setState(byPropKey('firstname', event.target.value))}
-          type="text"
-          placeholder="First Name"
-        />
-        <input
-          value={lastname}
-          onChange={event => this.setState(byPropKey('lastname', event.target.value))}
-          type="text"
-          placeholder="Last Name"
-        />
-        <input
-          value={email}
-          onChange={event => this.setState(byPropKey('email', event.target.value))}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          value={passwordOne}
-          onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          value={passwordTwo}
-          onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
+      <form onSubmit={this.onSubmit} className="ui form">
+        <div className="field">
+          <label>First Name</label>
+          <input
+              value={firstname}
+              onChange={event => this.setState(byPropKey('firstname', event.target.value))}
+              type="text"
+              placeholder="First Name"
+            />
+        </div>
+        <div className="field">
+          <label>Last Name</label>
+          <input
+            value={lastname}
+            onChange={event => this.setState(byPropKey('lastname', event.target.value))}
+            type="text"
+            placeholder="Last Name"
+          />
+        </div>
+        <div className="field">
+          <label>Email Address</label>
+          <input
+            value={email}
+            onChange={event => this.setState(byPropKey('email', event.target.value))}
+            type="text"
+            placeholder="Email Address"
+          />
+        </div>
+        <div className="field">
+          <label>Password</label>
+          <input
+            value={passwordOne}
+            onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+        <div className="field">
+          <label>Confirm Password</label>
+          <input
+            value={passwordTwo}
+            onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
+            type="password"
+            placeholder="Confirm Password"
+          />
+        </div>
+        <button disabled={isInvalid} type="submit" className="ui button">
           Sign Up
         </button>
-
         { error && <p>{error.message}</p> }
       </form>
     );
@@ -122,11 +138,11 @@ class SignUpForm extends Component {
 }
 
 const SignUpLink = () =>
-  <p>
+  <div className="position-right">
     Don't have an account?
     {' '}
-    <Link to={routes.SIGN_UP}>Sign Up</Link>
-  </p>
+    <Link to={routes.SIGN_UP} className="ui button">Sign Up</Link>
+  </div>
 
 export default withRouter(SignUp);
 
