@@ -1,0 +1,18 @@
+.campaign-description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.image-wrapper {
+  position: relative;
+  height: 200px;
+}
+
+.campaign-image-box {
+  height: 200px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+}

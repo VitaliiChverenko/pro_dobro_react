@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { dbCampaigns } from '../../firebase';
-import { Button, Form , Modal, Segment } from 'semantic-ui-react'
+import { Button, Form , Modal, Segment } from 'semantic-ui-react';
 
 class CreateCampaign extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class CreateCampaign extends Component {
       description: this.state.description,
       currentAmount: 10,
       neededAmount: this.state.neededAmount,
-      image: 'http://via.placeholder.com/350x150'
+      image: ''
     }
     dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image)
       .then(() => {
@@ -40,8 +40,9 @@ class CreateCampaign extends Component {
   render() {
     const {title, description, neededAmount} = this.state;
     const isEnabled = title.length && description.length && neededAmount.length;
+    const btnStyle = {marginBottom: 10};
     return (
-      <Modal trigger={<Button className="ui inverted green button" onClick={() => this.setState({showModal: true})}>Create Campaign</Button>}
+      <Modal trigger={<Button className="ui teal button" style={btnStyle} onClick={() => this.setState({showModal: true})}>Create Campaign</Button>}
         open={this.state.showModal} onClose={this.close}>
         <Modal.Header>
           <h1>Create Campaign</h1>
