@@ -138,10 +138,8 @@ class SignUpForm extends Component {
 }
 
 const SignUpLink = () =>
-  <div className="position-right">
-    Don't have an account?
-    {' '}
-    <Link to={routes.SIGN_UP} className="ui button">Sign Up</Link>
+  <div className="style-link">
+    <Link to={routes.SIGN_UP} className="ui small grey header">Don't have an account?</Link>
   </div>
 
 export default withRouter(SignUp);
