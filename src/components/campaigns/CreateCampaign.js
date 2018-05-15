@@ -55,7 +55,10 @@ class CreateCampaign extends Component {
       image: this.state.pictureURL
     }
     dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image)
-      .then(() => this.close())
+      .then(() => {
+        this.close();
+        this.props.onCreated();
+      })
   }
 
   close = () => {

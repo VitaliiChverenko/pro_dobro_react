@@ -47,7 +47,7 @@ export default class CampaignItem extends Component {
           <p className="campaign-description">{this.props.campaign.description}</p>
         </div>
         <ShowCampaign openModal={this.state.open} onCloseModal={() => this.setState({open: false})} campaign={this.props.campaign} progress={progress} background={background}/>
-        <EditCampaign campaign={this.props.campaign} />
+        <EditCampaign onEdit={this.props.onEdit} campaign={this.props.campaign} />
       </div>
     );
   }
