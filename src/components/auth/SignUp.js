@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { auth, dbUsers } from '../../firebase';
 import * as routes from '../../constants/routes';
+import { connect } from 'react-redux';
 
-const SignUp = ({ history }) =>
-  <div className="ui three column centered grid">
-    <div className="column">
-      <h1>Sign Up</h1>
-      <SignUpForm history={history} />
-    </div>
-  </div>
+class SignUp extends Component {
+  render () {
+    return (
+      !this.props.user ?
+      <div className="ui three column centered grid">
+        <div className="column">
+          <h1>Sign Up</h1>
+          <SignUpForm />
+        </div>
+      </div>
+      : <Redirect to="/news" />
+    );
+  }
+}
 
 const INITIAL_STATE = {
   firstname: '',
@@ -42,16 +50,11 @@ class SignUpForm extends Component {
       passwordOne,
     } = this.state;
 
-    const {
-      history,
-    } = this.props;
-
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         dbUsers.doCreateUser(authUser.uid, firstname, lastname, email, phone)
           .then(() => {
             this.setState(() => ({ ...INITIAL_STATE }));
-            history.push(routes.NEWS);
           })
           .catch(error => {
             this.setState(byPropKey('error', error));
@@ -138,13 +141,15 @@ class SignUpForm extends Component {
 }
 
 const SignUpLink = () =>
-  <div className="position-right">
-    Don't have an account?
-    {' '}
-    <Link to={routes.SIGN_UP} className="ui button">Sign Up</Link>
+  <div className="style-link">
+    <Link to={routes.SIGN_UP} className="ui small grey header">Don't have an account?</Link>
   </div>
 
-export default withRouter(SignUp);
+export default connect(
+  state=>({
+    user: state.auth
+  })
+)(SignUp);
 
 export {
   SignUpForm,

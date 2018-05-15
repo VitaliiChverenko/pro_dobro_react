@@ -8,3 +8,6 @@ export const doSignInWithEmailAndPassword = (email, password) =>
 
 export const doSignOut = () =>
   auth.signOut();
+
+export const doPasswordReset = (email) =>
+  auth.sendPasswordResetEmail(email);

@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
-import { SignUpLink } from './SignUp';
-import { PasswordForgetLink } from './PasswordForget';
-import { auth, dbUsers } from '../../firebase';
+import { auth } from '../../firebase';
 import { connect } from 'react-redux';
 
-class SignIn extends Component {
+class PasswordForget extends Component {
   render () {
     return (
       !this.props.user ?
       <div className="ui three column centered grid">
         <div className="column">
-          <h1>Sign In</h1>
-          <SignInForm />
-          <PasswordForgetLink />
-          <SignUpLink />
+          <h1>Password Forget</h1>
+          <PasswordForgetForm />
         </div>
       </div>
       : <Redirect to="/news" />
     );
-  }   
+  }
 }
 
 const byPropKey = (propertyName, value) => () => ({
@@ -29,11 +25,10 @@ const byPropKey = (propertyName, value) => () => ({
 
 const INITIAL_STATE = {
   email: '',
-  password: '',
   error: null,
 };
 
-class SignInForm extends Component {
+class PasswordForgetForm extends Component {
   constructor(props) {
     super(props);
 
@@ -41,16 +36,11 @@ class SignInForm extends Component {
   }
 
   onSubmit = (event) => {
-    const {
-      email,
-      password,
-    } = this.state;
+    const { email } = this.state;
 
-    auth.doSignInWithEmailAndPassword(email, password)
-      .then((user) => {
-        dbUsers.doGetUser(user.uid).then(res => {
-          this.setState(() => ({ ...INITIAL_STATE }));
-        })
+    auth.doPasswordReset(email)
+      .then(() => {
+        this.setState(() => ({ ...INITIAL_STATE }));
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
@@ -62,49 +52,44 @@ class SignInForm extends Component {
   render() {
     const {
       email,
-      password,
       error,
     } = this.state;
 
-    const isInvalid =
-      password === '' ||
-      email === '';
+    const isInvalid = email === '';
 
     return (
-    
       <form onSubmit={this.onSubmit} className="ui form">
         <div className="field">
-          <label>Email</label>
+          <label>Email Address</label>
           <input
-            value={email}
+            value={this.state.email}
             onChange={event => this.setState(byPropKey('email', event.target.value))}
             type="text"
             placeholder="Email Address"
           />
         </div>
-        
-        <div className="field">
-          <label>Password</label>
-          <input
-            value={password}
-            onChange={event => this.setState(byPropKey('password', event.target.value))}
-            type="password"
-            placeholder="Password"
-          />
-        </div>
         <button disabled={isInvalid} type="submit" className="ui button">
-          Sign In
+          Reset My Password
         </button>
 
         { error && <p>{error.message}</p> }
       </form>
-      
     );
   }
 }
 
+const PasswordForgetLink = () =>
+  <div className="style-link">
+    <Link to="/pw-forget" className="ui small grey header">Forgot Password?</Link>
+  </div>
+
 export default connect(
-  state=>({ 
+  state=>({
     user: state.auth
   })
-)(SignIn);
+)(PasswordForget);
+
+export {
+  PasswordForgetForm,
+  PasswordForgetLink,
+};

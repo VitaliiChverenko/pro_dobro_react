@@ -20,7 +20,7 @@ const NavigationAuth = (props) =>
     <Link to={ routes.CONTACTS } className="ui small inverted grey header">Contacts</Link>
     <span className="ui inverted grey divider header">|</span>
     <Link to={ routes.ABOUT_US } className="ui small inverted grey header">About us</Link>
-    <span className="ui inverted grey divider header">| Login as : </span>
+    <span className="ui inverted grey divider header">| Logged as : </span>
     <Link to={ routes.USERINFO } className="ui small inverted grey header">{props.email}</Link>
     <span className="position-btn"><SignOutButton /></span>
   </div>
