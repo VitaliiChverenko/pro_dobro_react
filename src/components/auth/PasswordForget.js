@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { auth } from '../../firebase';
+import { connect } from 'react-redux';
 
-const PasswordForget = () =>
-  <div className="ui three column centered grid">
-    <div className="column">
-      <h1>Password Forget</h1>
-      <PasswordForgetForm />
-    </div>
-  </div>
+class PasswordForget extends Component {
+  render () {
+    return (
+      !this.props.user ?
+      <div className="ui three column centered grid">
+        <div className="column">
+          <h1>Password Forget</h1>
+          <PasswordForgetForm />
+        </div>
+      </div>
+      : <Redirect to="/news" />
+    );
+  }
+}
 
 const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -75,7 +83,11 @@ const PasswordForgetLink = () =>
     <Link to="/pw-forget" className="ui small grey header">Forgot Password?</Link>
   </div>
 
-export default PasswordForget;
+export default connect(
+  state=>({
+    user: state.auth
+  })
+)(PasswordForget);
 
 export {
   PasswordForgetForm,

@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { SignUpLink } from './SignUp';
 import { PasswordForgetLink } from './PasswordForget';
-import { auth } from '../../firebase';
-import * as routes from '../../constants/routes';
-import { dbUsers } from '../../firebase';
+import { auth, dbUsers } from '../../firebase';
+import { connect } from 'react-redux';
 
-const SignIn = ({ history }) =>
-  <div className="ui three column centered grid">
-    <div className="column">
-      <h1>Sign In</h1>
-      <SignInForm history={history} />
-      <PasswordForgetLink />
-      <SignUpLink />
-    </div>
-  </div>
+class SignIn extends Component {
+  render () {
+    return (
+      !this.props.user ?
+      <div className="ui three column centered grid">
+        <div className="column">
+          <h1>Sign In</h1>
+          <SignInForm />
+          <PasswordForgetLink />
+          <SignUpLink />
+        </div>
+      </div>
+      : <Redirect to="/news" />
+    );
+  }   
+}
 
 const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -40,15 +46,10 @@ class SignInForm extends Component {
       password,
     } = this.state;
 
-    const {
-      history,
-    } = this.props;
-
     auth.doSignInWithEmailAndPassword(email, password)
       .then((user) => {
         dbUsers.doGetUser(user.uid).then(res => {
           this.setState(() => ({ ...INITIAL_STATE }));
-          history.push(routes.NEWS);
         })
       })
       .catch(error => {
@@ -70,6 +71,7 @@ class SignInForm extends Component {
       email === '';
 
     return (
+    
       <form onSubmit={this.onSubmit} className="ui form">
         <div className="field">
           <label>Email</label>
@@ -80,6 +82,7 @@ class SignInForm extends Component {
             placeholder="Email Address"
           />
         </div>
+        
         <div className="field">
           <label>Password</label>
           <input
@@ -95,8 +98,13 @@ class SignInForm extends Component {
 
         { error && <p>{error.message}</p> }
       </form>
+      
     );
   }
 }
 
-export default withRouter(SignIn);
+export default connect(
+  state=>({ 
+    user: state.auth
+  })
+)(SignIn);
