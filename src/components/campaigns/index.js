@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CampaignItem from './item';
 import { dbCampaigns } from '../../firebase';
 import CreateCampaign from './CreateCampaign';
+import './campaigns-style.css';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
 export default class CampaignsIndex extends Component {
