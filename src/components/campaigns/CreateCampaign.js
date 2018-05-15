@@ -46,7 +46,6 @@ class CreateCampaign extends Component {
       description: this.state.description,
       currentAmount: 10,
       neededAmount: this.state.neededAmount,
-      image: '',
       image: this.state.pictureURL
     }
     dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image)
