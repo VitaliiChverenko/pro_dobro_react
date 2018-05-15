@@ -1,36 +1,29 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import { dbCampaigns } from '../../firebase';
-import { Button, Form , Modal, Segment } from 'semantic-ui-react';
-=======
 import { firebase, dbCampaigns } from '../../firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import { Button, Form , Modal, Segment, Progress } from 'semantic-ui-react'
->>>>>>> EditCampaign Page
 
-class CreateCampaign extends Component {
+class EditCampaign extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
-      title: '',
-      description: '',
-      neededAmount: '',
-      picture: '',
+      title: props.campaign.title,
+      description: props.campaign.description,
+      neededAmount: props.campaign.needed_amount,
+      picture: props.campaign.picture,
       isUploading: false,
       progress: 0,
-      pictureURL: '',
-      campaigns: this.props.items
+      pictureURL: props.campaign.image,
+      campaign: props.campaign
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.close = this.close.bind(this);
   }
 
   handleChangeUsername = (event) => this.setState({username: event.target.value});
   handleUploadStart = () => {
-    if (this.state.picture) {
-      firebase.storage.ref('images').child(this.state.picture).delete()
-    }
     this.setState({isUploading: true, progress: 0});
   }
   handleProgress = (progress) => this.setState({progress});
@@ -39,6 +32,7 @@ class CreateCampaign extends Component {
     console.error(error);
   }
   handleUploadSuccess = (filename) => {
+    if (this.state.picture) firebase.storage.ref('images').child(this.state.picture).delete()
     this.setState({picture: filename, progress: 100, isUploading: false});
     firebase.storage.ref('images').child(filename).getDownloadURL().then(url => this.setState({pictureURL: url}));
   };
@@ -46,12 +40,11 @@ class CreateCampaign extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const campaign = {
-      id: this.props.items.length,
+      id: this.props.campaign.id,
       title: this.state.title,
       description: this.state.description,
       currentAmount: 10,
       neededAmount: this.state.neededAmount,
-      image: ''
       image: this.state.pictureURL
     }
     dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image)
@@ -61,23 +54,23 @@ class CreateCampaign extends Component {
   close = () => {
     this.setState({ showModal: false });
   }
+
   render() {
     const {title, description, neededAmount} = this.state;
     const isEnabled = title.length && description.length && neededAmount.length;
-    const btnStyle = {marginBottom: 10};
     return (
-      <Modal trigger={<Button className="ui teal button" style={btnStyle} onClick={() => this.setState({showModal: true})}>Create Campaign</Button>}
+      <Modal trigger={<Button onClick={() => this.setState({showModal: true})}>EditCampaign</Button>} 
         open={this.state.showModal} onClose={this.close}>
         <Modal.Header>
-          <h1>Create Campaign</h1>
+          <h1>Edit Campaign</h1>
         </Modal.Header>
         <Segment>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group widths="equal">
-              <Form.Input label="Title" type="text" value={this.state.value} onChange={event => this.setState({title: event.target.value})} />
-              <Form.Input label="Needed Amount" type="number" value={this.state.value} onChange={event => this.setState({neededAmount: event.target.value})} />
+              <Form.Input label="Title" type="text" value={this.state.title} onChange={event => this.setState({title: event.target.value})} />
+              <Form.Input label="Needed Amount" type="text" value={this.state.neededAmount} onChange={event => this.setState({neededAmount: event.target.value})} />
             </Form.Group>
-            <Form.TextArea label="Description" value={this.state.value} onChange={event => this.setState({description: event.target.value})} />
+            <Form.TextArea label="Description" value={this.state.description} onChange={event => this.setState({description: event.target.value})} />
             <Form.Field>
                 {this.state.isUploading &&
                   <Progress percent={this.state.progress} autoSuccess />
@@ -104,4 +97,4 @@ class CreateCampaign extends Component {
   }
 }
 
-export default CreateCampaign;
+export default EditCampaign;
