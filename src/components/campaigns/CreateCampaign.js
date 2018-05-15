@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import { dbCampaigns } from '../../firebase';
-import { Button, Form , Modal, Segment } from 'semantic-ui-react';
-=======
 import { firebase, dbCampaigns } from '../../firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import { Button, Form , Modal, Segment, Progress } from 'semantic-ui-react'
->>>>>>> EditCampaign Page
 
 class CreateCampaign extends Component {
   constructor(props) {
@@ -51,7 +46,7 @@ class CreateCampaign extends Component {
       description: this.state.description,
       currentAmount: 10,
       neededAmount: this.state.neededAmount,
-      image: ''
+      image: '',
       image: this.state.pictureURL
     }
     dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image)
