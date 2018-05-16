@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ShowCampaign from './Show';
 import placeholder from '../../media/images/pic-placeholder.png';
+import EditCampaign from './EditCampaign';
 
 export default class CampaignItem extends Component {
   constructor(props) {
@@ -46,6 +47,7 @@ export default class CampaignItem extends Component {
           <p className="campaign-description">{this.props.campaign.description}</p>
         </div>
         <ShowCampaign openModal={this.state.open} onCloseModal={() => this.setState({open: false})} campaign={this.props.campaign} progress={progress} background={background}/>
+        <EditCampaign onEdit={this.props.onEdit} campaign={this.props.campaign} />
       </div>
     );
   }
