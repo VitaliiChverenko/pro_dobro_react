@@ -1,5 +1,4 @@
 import AddressAutoComplete from './AddressAutoComplete';
-
 import { dbContacts } from '../../firebase';
 import React, {Component} from 'react';
 import { Button, Modal, Input } from 'semantic-ui-react';
@@ -27,15 +26,15 @@ class ContactForm extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({contacts: {...props.contactsData}});
+  componentDidMount(){
+    this.setState({contacts: this.props.contactsData});
   }
+
   onSubmit(){
     dbContacts.doChangeContacts({...this.state.contacts}).then(response => {
-      this.props.onUpdateContacts();
+      this.props.onUpdate(this.state.contacts)
       this.handleClose();
     });
-
   }
 
   handleOpen(){
@@ -57,11 +56,17 @@ class ContactForm extends Component {
   render() {
     return  (
       <Modal
-        trigger={<Button onClick={this.handleOpen}>Edit Contacts</Button>}
+        trigger={<Button 
+          color='teal'
+          onClick={this.handleOpen}>
+          Edit Contacts
+          </Button>}
         open={this.state.modalOpen}
         closeOnEscape={true}
         closeOnRootNodeClick={true}
-        onClose={this.handleClose}>
+        onClose={this.handleClose}
+      >
+        
         <Modal.Header>Contacts edit</Modal.Header>
         <Modal.Content>
           <div>
@@ -101,4 +106,4 @@ class ContactForm extends Component {
     )}
 }
 
-export default ContactForm
+export default ContactForm;
