@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewsItem from './NewsItem'
+import SortNews from './SortNews'
 import { dbNews } from '../../firebase';
 import CreateNews from './CreateNews';
 import './news-style.css'
@@ -12,6 +13,7 @@ export default class NewsList extends Component{
       news: {},
       loading: false,
       loaded: false,
+      sortOrder: 'newest',
     }
   }
 
@@ -30,8 +32,25 @@ export default class NewsList extends Component{
     })
   }
 
-  isEmpty = (obj) => {
-    return Object.getOwnPropertyNames(obj).length === 0 
+  isEmpty = obj => Object.keys(obj).length === 0
+
+  sortByNewest = arr => arr.sort((a, b) => b - a)
+  
+  sortByOldest = arr => arr.sort((a, b) => a - b)
+  
+  sortChoose = (arr, sortMethod) => {
+    if (sortMethod === 'newest') {
+      return this.sortByNewest(arr)
+    }
+    if (sortMethod === 'oldest') {
+      return this.sortByOldest(arr)
+    }
+  }
+
+  updateSort = (value) => {
+    this.setState({
+      sortOrder: value
+    })
   }
 
   render(){
@@ -48,10 +67,16 @@ export default class NewsList extends Component{
             </div>
             : 
             <div className="ui container">
+              <div className="sort-wrap">
+                <span>
+                  Sort by:
+                  {' '}
+                  <SortNews update={this.updateSort}/>
+                </span>
+              </div>
               {
-                Object.keys(this.state.news).map(key =>
-                  <NewsItem  onUpdated={this.onUpdateNews} event = {this.state.news[key]} key={key}/>
-                )
+                this.sortChoose(Object.keys(this.state.news), this.state.sortOrder)
+                  .map(key => <NewsItem event={this.state.news[key]} key={key}/>)
               }
               <CreateNews onCreated={this.onUpdateNews} />
             </div>

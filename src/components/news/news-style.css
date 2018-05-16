@@ -1,6 +1,3 @@
-.news-wrapper{
-  min-height: 300px;
-}
 .news-wrapper .dimmable{
   min-height: 300px;
 }
@@ -20,7 +17,6 @@ h2.no-news{
   height: 300px;
   overflow: hidden;  
 }
-
 .news-description p {
   max-height: 11.1em;
   display: -webkit-box;
@@ -44,22 +40,21 @@ h2.no-news{
 .ui.grid > .column.news-pic-wrapper{
   padding: 0;
 }
-
 .news-image {
   width: 250px;
 }
-
 .news-image img {
   width: 100%;
 }
-
 .edit-news-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
 .edit-news-header div {
   display: flex;
   flex-direction: row;
+}
+.sort-wrap{
+  text-align: right;
 }
