@@ -6,10 +6,16 @@ import placeholder from '../../media/images/pic-placeholder.png';
 
 const NewsItem = (props) => {
   return(
-    <div className="ui grid segment">
+    <div className="ui grid stackable segment">
       <div className="five wide column news-pic-wrapper">
-        <div className="news-pic-box" style={{backgroundImage: `url('${placeholder}')`}}></div>
-        <div className="news-pic-box" style={{backgroundImage: `url('${props.event.imageUrl}')`}}></div>
+        <div className="news-pic-box">
+          { 
+            <img src={props.event.imageUrl || placeholder} 
+                 alt="News"
+                 onError={e => e.target.src = placeholder}
+            /> 
+          }
+        </div>
         <p className="created-at">
           Created at: <span> {new Date(props.event.createdAt).toLocaleString()} </span>
         </p>

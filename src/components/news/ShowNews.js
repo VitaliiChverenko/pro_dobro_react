@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Modal,Label } from 'semantic-ui-react'
-import placeholder from '../../media/images/news-placeholder.png';
+import { Button, Image, Modal, Label } from 'semantic-ui-react';
+import placeholder from '../../media/images/pic-placeholder.png';
 
 const ShowNews = (props) => (
   <Modal trigger={<Button color='blue'>Show News</Button>} closeIcon>
@@ -9,8 +9,8 @@ const ShowNews = (props) => (
         {props.news.title}
       </h1>
       <Label attached='top right'>
-        Posted at: {props.news.createdAt}
-        </Label> 
+        Posted at: {new Date(props.news.createdAt).toLocaleString()}
+      </Label> 
     </Modal.Header>
     <Modal.Content image>
       <div className='newsImageDiv' style={{backgroundImage: `url('${placeholder}')`}}>

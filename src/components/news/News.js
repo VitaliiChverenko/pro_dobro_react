@@ -59,27 +59,29 @@ export default class NewsList extends Component{
         <Dimmer.Dimmable dimmed={this.state.loading} >
           { 
             this.isEmpty(this.state.news) && this.state.loaded ?
-            <div className="ui container">
-              <h2 className="no-news">
-                There are no news yet!
-              </h2>
-              <CreateNews onCreated={this.onUpdateNews} />
-            </div>
-            : 
-            <div className="ui container">
-              <div className="sort-wrap">
-                <span>
-                  Sort by:
-                  {' '}
-                  <SortNews update={this.updateSort}/>
-                </span>
+              <div className="ui container">
+                <h2 className="no-news">
+                  There are no news yet!
+                </h2>
+                <CreateNews onCreated={this.onUpdateNews} />
               </div>
-              {
-                this.sortChoose(Object.keys(this.state.news), this.state.sortOrder)
-                  .map(key => <NewsItem event={this.state.news[key]} key={key}/>)
-              }
-              <CreateNews onCreated={this.onUpdateNews} />
-            </div>
+            : 
+              <div className="ui container">
+                <div className="news-nav">
+                  <CreateNews onCreated={this.onUpdateNews} />  
+                    <div className="sort-wrap">        
+                      <span>
+                        Sort by:
+                        {' '}
+                        <SortNews update={this.updateSort}/>
+                      </span>
+                    </div>
+                </div>
+                {
+                  this.sortChoose(Object.keys(this.state.news), this.state.sortOrder)
+                    .map(key => <NewsItem event={this.state.news[key]} key={key}/>)
+                }
+              </div>
           }
         </Dimmer.Dimmable>
       </div>

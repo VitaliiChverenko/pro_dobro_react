@@ -66,7 +66,7 @@ class CreateNews extends Component {
             title.length > 0 &&
             description.length > 0;
     return (
-      <Modal trigger={<Button onClick={() => this.setState({showModal: true})}>Create News</Button>}
+      <Modal trigger={<Button className="teal" onClick={() => this.setState({showModal: true})}>Create News</Button>}
              open={this.state.showModal} 
              onClose={this.close}>
         <Modal.Header>Create News</Modal.Header>
