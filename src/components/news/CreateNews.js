@@ -1,44 +1,31 @@
 import React, { Component } from 'react'
-import { firebase, dbNews } from '../../firebase';
-import FileUploader from 'react-firebase-file-uploader';
-import { Button, Form, Modal } from 'semantic-ui-react'
+import { dbNews } from '../../firebase';
+import { Button, Form, Modal } from 'semantic-ui-react';
+import {connect} from "react-redux";
+import ImageUploader from '../ImageUploader';
+import placeholder from '../../media/images/pic-placeholder.png';
 
 const INIT_STATE = {
   showModal: false,
   title:'',
   description:'',    
-  picture: '',
+  image: '',
   isUploading: false,
   progress: 0,
-  pictureURL: ''
+  imageUrl: placeholder
 };
 
 class CreateNews extends Component {
   constructor() {
     super();
     this.state = INIT_STATE ;
+    
     this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.setUrl = this.setUrl.bind(this);
     this.handledescriptionChange = this.handledescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.close = this.close.bind(this);
   }
-
-  handleChangeUsername = (event) => this.setState({username: event.target.value});
-  handleUploadStart = () => {
-    if (this.state.picture) {
-      firebase.storage.ref('images').child(this.state.picture).delete()
-    }
-    this.setState({isUploading: true, progress: 0});
-  }
-  handleProgress = (progress) => this.setState({progress});
-  handleUploadError = (error) => {
-    this.setState({isUploading: false});
-    console.error(error);
-  }
-  handleUploadSuccess = (filename) => {
-    this.setState({picture: filename, progress: 100, isUploading: false});
-    firebase.storage.ref('images').child(filename).getDownloadURL().then(url => this.setState({pictureURL: url}));
-  };
 
   handleTitleChange(e) {
     this.setState({title: e.target.value});
@@ -48,6 +35,10 @@ class CreateNews extends Component {
     this.setState({description: e.target.value});
   }
 
+  setUrl(url){
+    this.setState({imageUrl: url});
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const createdAt = new Date().valueOf();
@@ -55,7 +46,7 @@ class CreateNews extends Component {
       title: this.state.title,
       description: this.state.description,
       createdAt,
-      imageUrl: this.state.pictureURL
+      imageUrl: this.state.imageUrl
     }
     dbNews.doCreateNews(createdAt, news)
       .then(() => {
@@ -76,36 +67,42 @@ class CreateNews extends Component {
             description.length > 0;
     return (
       <Modal trigger={<Button onClick={() => this.setState({showModal: true})}>Create News</Button>}
-      open={this.state.showModal} onClose={this.close}>
+             open={this.state.showModal} 
+             onClose={this.close}>
         <Modal.Header>Create News</Modal.Header>
-        <Modal.Content image>
+        <Modal.Content>
           <Modal.Description>
             <Form>
               <Form.Field>
-                <input type="text" onChange={this.handleTitleChange} value={this.state.title} className="form-control" id="title" name="title" placeholder="Title" required />
+                <input type="text" 
+                       onChange={this.handleTitleChange} 
+                       value={this.state.title} 
+                       className="form-control" 
+                       id="title" 
+                       name="title" 
+                       placeholder="Title" 
+                       required />
               </Form.Field>
               <Form.Field>
-                <textarea className="form-control" onChange={this.handledescriptionChange} value={this.state.description} type="textarea" id="description" placeholder="description" maxLength={1400} rows={7} />
+                <textarea className="form-control" 
+                          onChange={this.handledescriptionChange} 
+                          value={this.state.description} 
+                          type="textarea" 
+                          id="description" 
+                          placeholder="description" 
+                          maxLength={1400} 
+                          rows={7} />
               </Form.Field>
-              <Form.Field>
-                {this.state.isUploading &&
-                  <p>Progress: {this.state.progress}</p>
-                }
-                {this.state.pictureURL &&
-                  <img src={this.state.pictureURL} alt="news" />
-                }
-                <FileUploader
-                  accept="image/*"
-                  name="picture"
-                  randomizeFilename
-                  storageRef={firebase.storage.ref('images')}
-                  onUploadStart={this.handleUploadStart}
-                  onUploadError={this.handleUploadError}
-                  onUploadSuccess={this.handleUploadSuccess}
-                  onProgress={this.handleProgress}
-                />
-              </Form.Field>
-              <Button positive icon='checkmark' labelPosition='right' content="Create News" disabled={!isEnabled} onClick={this.handleSubmit} />
+              <div className="news-image">
+                <img src={this.state.imageUrl} alt="News-pic" />
+              </div>
+              <ImageUploader setUrl={this.setUrl}/>
+              <Button positive 
+                      icon='checkmark' 
+                      labelPosition='right' 
+                      content="Create News" 
+                      disabled={!isEnabled} 
+                      onClick={this.handleSubmit} />
             </Form>
           </Modal.Description>
         </Modal.Content>
@@ -114,4 +111,8 @@ class CreateNews extends Component {
   }
 }
 
-export default CreateNews
+export default connect (
+  state => ({
+    user: state.auth
+  })
+)(CreateNews);
