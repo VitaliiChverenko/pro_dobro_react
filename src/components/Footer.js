@@ -16,14 +16,14 @@ const Footer = () => {
         </div>
         <div className="ui eight wide column grid">
           <div className="four wide column">
-            <p>LINKS</p>
-            <p><Link to={ routes.NEWS }>NEWS</Link></p>
-            <p><Link to={ routes.CAMPAIGNS }>CAMPAIGNS</Link></p>
-            <p><Link to={ routes.CONTACTS }>CONTACTS US</Link></p>
-            <p><Link to={ routes.ABOUT_US }>ABOUT US</Link></p>
+            <p><Link to={ routes.NEWS } className="ui small grey header">NEWS</Link></p>
+            <p><Link to={ routes.CAMPAIGNS } className="ui small inverted grey header">CAMPAIGNS</Link></p>
+            <p><Link to={ routes.CONTACTS } className="ui small inverted grey header">CONTACTS US</Link></p>
+            <p><Link to={ routes.ABOUT_US } className="ui small inverted grey header">ABOUT US</Link></p>
           </div>
           <div className="four wide column">
-            <p>ADDRESS</p>
+        </div>
+          <div className="four wide column">
             <p>LVIV, LV 79000</p>
             <p>prodobro@gmail.com</p>
             <p>+01 234 567 88</p>
