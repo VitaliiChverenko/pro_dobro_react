@@ -28,7 +28,7 @@
 }
 
 .newsDesc p{
-text-align: justify
+  text-align: justify
 }
 
 .avatar{
@@ -36,4 +36,8 @@ text-align: justify
   width: 150px;
   background-position: center;
   background-size: cover;
+}
+
+.styleAboutUs h1, p {
+  color: #777;
 }
