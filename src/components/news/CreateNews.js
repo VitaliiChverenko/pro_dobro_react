@@ -18,28 +18,22 @@ const INIT_STATE = {
 class CreateNews extends Component {
   constructor() {
     super();
-    this.state = INIT_STATE ;
-    
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.setUrl = this.setUrl.bind(this);
-    this.handledescriptionChange = this.handledescriptionChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.close = this.close.bind(this);
+    this.state = INIT_STATE
   }
 
-  handleTitleChange(e) {
+  handleTitleChange = (e) => {
     this.setState({title: e.target.value});
   }
 
-  handledescriptionChange(e) {
+  handledescriptionChange = (e) => {
     this.setState({description: e.target.value});
   }
 
-  setUrl(url){
+  setUrl = (url) => {
     this.setState({imageUrl: url});
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     const createdAt = new Date().valueOf();
     const news = {
@@ -56,8 +50,8 @@ class CreateNews extends Component {
       })
   }
 
-  close(){
-    this.setState({ showModal: false });
+  close = () => {
+    this.setState(INIT_STATE);
   }
 
   render() {
@@ -75,22 +69,17 @@ class CreateNews extends Component {
           <Modal.Description>
             <Form>
               <Form.Field>
-                <input type="text" 
-                       onChange={this.handleTitleChange} 
+                <input onChange={this.handleTitleChange} 
                        value={this.state.title} 
-                       className="form-control" 
-                       id="title" 
-                       name="title" 
+                       type="text" 
                        placeholder="Title" 
                        maxLength={50}
                        required />
               </Form.Field>
               <Form.Field>
-                <textarea className="form-control" 
-                          onChange={this.handledescriptionChange} 
+                <textarea onChange={this.handledescriptionChange} 
                           value={this.state.description} 
                           type="textarea" 
-                          id="description" 
                           placeholder="description" 
                           maxLength={1400} 
                           rows={7} />

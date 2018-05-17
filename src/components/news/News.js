@@ -83,7 +83,7 @@ export default class NewsList extends Component{
                 </div>
                 {
                   this.sortChoose(Object.keys(this.state.news), this.state.sortOrder)
-                    .map(key => <NewsItem onDelete={this.onDeleteNews}
+                    .map(key => <NewsItem onUpdated = {this.onUpdateNews} onDelete={this.onDeleteNews}
                        event={this.state.news[key]} key={key}/>)
                 }
               </div>
