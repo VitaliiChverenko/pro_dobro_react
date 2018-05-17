@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
 import CampaignsIndex from './campaigns/index';
@@ -29,6 +29,7 @@ const App = () =>
         <Route exact path={ routes.SIGN_UP } component={SignUp} />
         <Route exact path={ routes.SIGN_IN } component={SignIn} />
         <Route exact path={ routes.PASSWORD_FORGET } component={PasswordForget} />
+        <Redirect from="*" to="/news" />
       </div>
       <Footer />
     </div>
