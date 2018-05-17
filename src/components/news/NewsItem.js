@@ -1,6 +1,8 @@
 import React from 'react';
-import ShowNews from './ShowNews'
+import ShowNews from './ShowNews';
+import EditNews from './EditNews';
 import placeholder from '../../media/images/pic-placeholder.png';
+
 
 const NewsItem = (props) => {
   return(
@@ -13,13 +15,22 @@ const NewsItem = (props) => {
         </p>
       </div>
       <div className="eleven wide column news-description">
-        <h2>{props.event.title}</h2>
-        <p>
-          {props.event.description}
-        </p>
-        <div className="show-news-btn">
-          <ShowNews news={props.event}/>          
+        <div className="edit-news-header">
+          <div>
+            <h2>{props.event.title}</h2>
+          </div>
+          <div> 
+            <div className="show-news-btn">
+              <ShowNews news={props.event}/>          
+            </div>
+            <div className="edit-news-btn">
+              <EditNews onUpdated={props.onUpdated} news={props.event}/>          
+            </div>
+          </div>
         </div>
+        <p>
+            {props.event.description}
+        </p>
       </div>
     </div>
   )

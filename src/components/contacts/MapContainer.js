@@ -2,21 +2,19 @@ import React from 'react'
 import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
 import GoogleAPIkey from '../../constants/google.config'
  
-export class MapContainer extends React.Component {
-  render() {
-    return (
-      <div className="map">
-        <Map google={this.props.google}
-          center={this.props.coords}
-          zoom={15}
-          style={{height:"500px", width:'90%'}}>
-          <Marker
-            name={'softserve'}
-            position={this.props.coords} />
-        </Map>
-      </div>
-    );
-  }
+export const MapContainer = props => {
+  return (
+    <div className="map">
+      <Map google={props.google}
+        center={props.coords}
+        zoom={15}
+        style={{height:"500px", width:'90%'}}>
+        <Marker
+          name={'softserve'}
+          position={props.coords} />
+      </Map>
+    </div>
+  );
 }
  
 export default GoogleApiWrapper({

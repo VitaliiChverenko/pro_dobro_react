@@ -8,14 +8,9 @@ export const doCreateUser = (id, firstname, lastname, email, phone) =>
     phone
   });
 
-export const doChangeUser = (firstname, lastname, email, phone) => {
+export const doChangeUser = (userInfo) => {
   if (auth.currentUser) {
-    db.ref(`users/${auth.currentUser.uid}`).set({
-      firstname,
-      lastname,
-      email,
-      phone
-    });
+    return db.ref(`users/${auth.currentUser.uid}`).set(userInfo);
   }
 }
 export const doGetUser = uid =>

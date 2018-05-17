@@ -20,11 +20,7 @@ h2.no-news{
   height: 300px;
   overflow: hidden;  
 }
-.show-news-btn{
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-}
+
 .news-description p {
   max-height: 11.1em;
   display: -webkit-box;
@@ -47,4 +43,23 @@ h2.no-news{
 }
 .ui.grid > .column.news-pic-wrapper{
   padding: 0;
+}
+
+.news-image {
+  width: 250px;
+}
+
+.news-image img {
+  width: 100%;
+}
+
+.edit-news-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.edit-news-header div {
+  display: flex;
+  flex-direction: row;
 }

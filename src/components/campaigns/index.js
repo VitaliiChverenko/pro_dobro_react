@@ -34,7 +34,7 @@ export default class CampaignsIndex extends Component {
         <div className="ui stackable three column grid">
           {
             Object.keys(this.state.campaigns).map( key =>
-              <CampaignItem key={key} campaign={this.state.campaigns[key]} />
+              <CampaignItem onEdit={this.updateData} key={key} campaign={this.state.campaigns[key]} />
           )}
         </div>
       </div>

@@ -3,7 +3,7 @@ import NewsItem from './NewsItem'
 import { dbNews } from '../../firebase';
 import CreateNews from './CreateNews';
 import './news-style.css'
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Dimmer } from 'semantic-ui-react';
 
 export default class NewsList extends Component{
   constructor(props){
@@ -38,9 +38,6 @@ export default class NewsList extends Component{
     return(
       <div className="news-wrapper">
         <Dimmer.Dimmable dimmed={this.state.loading} >
-          <Dimmer active={this.state.loading} inverted>
-            <Loader>Loading</Loader>
-          </Dimmer>
           { 
             this.isEmpty(this.state.news) && this.state.loaded ?
             <div className="ui container">
@@ -53,7 +50,7 @@ export default class NewsList extends Component{
             <div className="ui container">
               {
                 Object.keys(this.state.news).map(key =>
-                  <NewsItem event = {this.state.news[key]} key={key}/>
+                  <NewsItem  onUpdated={this.onUpdateNews} event = {this.state.news[key]} key={key}/>
                 )
               }
               <CreateNews onCreated={this.onUpdateNews} />
