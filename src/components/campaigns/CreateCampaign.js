@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { firebase, dbCampaigns } from '../../firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import { Button, Form , Modal, Segment, Progress } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class CreateCampaign extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class CreateCampaign extends Component {
       isUploading: false,
       progress: 0,
       pictureURL: '',
-      campaigns: this.props.items
+      campaigns: this.props.items,
+      createdBy: '',
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,9 +48,11 @@ class CreateCampaign extends Component {
       description: this.state.description,
       currentAmount: 10,
       neededAmount: this.state.neededAmount,
-      image: this.state.pictureURL
+      image: this.state.pictureURL,
+      createdBy: this.props.user.email,
     }
-    dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image)
+    console.log(campaign.createdBy)
+    dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image, campaign.createdBy)
       .then(() => {
         this.close();
         this.props.onCreated();
@@ -101,4 +105,8 @@ class CreateCampaign extends Component {
   }
 }
 
-export default CreateCampaign;
+export default connect (
+  state => ({
+    user: state.auth
+  })
+)(CreateCampaign);

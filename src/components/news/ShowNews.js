@@ -3,7 +3,7 @@ import { Button, Modal, Label } from 'semantic-ui-react';
 import placeholder from '../../media/images/pic-placeholder.png';
 
 const ShowNews = (props) => (
-  <Modal trigger={<Button color='blue'>Show News</Button>} closeIcon>
+  <Modal trigger={<Button color='teal'>Show News</Button>} closeIcon>
     <Modal.Header>
       <h1>
         {props.news.title}

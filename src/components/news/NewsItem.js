@@ -1,6 +1,7 @@
 import React from 'react';
 import ShowNews from './ShowNews';
 import EditNews from './EditNews';
+import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 import placeholder from '../../media/images/pic-placeholder.png';
 
@@ -22,29 +23,27 @@ const NewsItem = (props) => {
         </p>
       </div>
       <div className="eleven wide column news-description">
-        <div className="edit-news-header">
-          <div>
-            <h2>{props.event.title}</h2>
-          </div>
-          <div> 
-            <div className="show-news-btn">
-              <ShowNews news={props.event}/>          
-            </div>
-            <div className="edit-news-btn">
-              <EditNews onUpdated={props.onUpdated} news={props.event}/>          
-            </div>
-          </div>
-        </div>
+        <h2>{props.event.title}</h2>
         <p>
             {props.event.description}
         </p>
-        <div className="show-news-btn">
+        <div className="news-btns">
           <ShowNews news={props.event}/> 
-          <Button onClick={() => props.onDelete(props.event.createdAt)}>Delete news</Button>         
+          <EditNews onUpdated={props.onUpdated} news={props.event}/>
+          {
+            props.user && props.user.isAdmin ?
+              <Button color='red' onClick={() => props.onDelete(props.event.createdAt)}>Delete news</Button>
+              :
+              true
+          }        
         </div>
       </div>
     </div>
   )
 }
 
-export default NewsItem;
+export default connect (
+  state => ({
+    user: state.auth
+  })
+)(NewsItem);

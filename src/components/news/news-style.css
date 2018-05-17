@@ -31,8 +31,7 @@ h2.no-news{
   height: 300px;
   overflow: hidden;  
 }
-
-.show-news-btn{
+.news-btns{
   position: absolute;
   bottom: 1rem;
   left: 1rem;
@@ -64,15 +63,6 @@ h2.no-news{
 }
 .news-image img {
   width: 100%;
-}
-.edit-news-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.edit-news-header div {
-  display: flex;
-  flex-direction: row;
 }
 .sort-wrap{
   text-align: right;

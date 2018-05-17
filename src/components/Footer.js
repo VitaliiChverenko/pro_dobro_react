@@ -6,8 +6,8 @@ import { Grid, Header } from 'semantic-ui-react'
 
 const Footer = () =>{
     return(
-      <Grid className="no-margin">
-        <Grid.Row>
+      <Grid className="no-margin segment">
+        <Grid.Row >
           <Grid.Column width={6} color='black' inverted  textAlign='center'>
             <Header size='small' color='teal' textAlign='center'>OUR GOALS</Header>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit,
