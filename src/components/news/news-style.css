@@ -31,6 +31,12 @@ h2.no-news{
   height: 300px;
   overflow: hidden;  
 }
+
+.show-news-btn{
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
 .news-description p {
   max-height: 11.1em;
   overflow: hidden;

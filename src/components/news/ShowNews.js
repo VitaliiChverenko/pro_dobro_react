@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Modal, Label } from 'semantic-ui-react';
+import { Button, Modal, Label } from 'semantic-ui-react';
 import placeholder from '../../media/images/pic-placeholder.png';
 
 const ShowNews = (props) => (

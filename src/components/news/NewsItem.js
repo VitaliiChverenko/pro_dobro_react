@@ -1,6 +1,7 @@
 import React from 'react';
 import ShowNews from './ShowNews';
 import EditNews from './EditNews';
+import { Button } from 'semantic-ui-react';
 import placeholder from '../../media/images/pic-placeholder.png';
 
 
@@ -37,6 +38,10 @@ const NewsItem = (props) => {
         <p>
             {props.event.description}
         </p>
+        <div className="show-news-btn">
+          <ShowNews news={props.event}/> 
+          <Button onClick={() => props.onDelete(props.event.createdAt)}>Delete news</Button>         
+        </div>
       </div>
     </div>
   )

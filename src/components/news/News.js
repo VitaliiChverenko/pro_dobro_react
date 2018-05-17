@@ -32,6 +32,10 @@ export default class NewsList extends Component{
     })
   }
 
+  onDeleteNews = (key) => {
+    dbNews.doDeleteNews(key, this.onUpdateNews)
+  }
+
   isEmpty = obj => Object.keys(obj).length === 0
 
   sortByNewest = arr => arr.sort((a, b) => b - a)
@@ -79,7 +83,8 @@ export default class NewsList extends Component{
                 </div>
                 {
                   this.sortChoose(Object.keys(this.state.news), this.state.sortOrder)
-                    .map(key => <NewsItem event={this.state.news[key]} key={key}/>)
+                    .map(key => <NewsItem onDelete={this.onDeleteNews}
+                       event={this.state.news[key]} key={key}/>)
                 }
               </div>
           }
