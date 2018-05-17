@@ -50,7 +50,7 @@ export default class NewsList extends Component{
             <div className="ui container">
               {
                 Object.keys(this.state.news).map(key =>
-                  <NewsItem event = {this.state.news[key]} key={key}/>
+                  <NewsItem  onUpdated={this.onUpdateNews} event = {this.state.news[key]} key={key}/>
                 )
               }
               <CreateNews onCreated={this.onUpdateNews} />
