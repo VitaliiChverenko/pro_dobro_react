@@ -8,7 +8,7 @@ export const doCreateCampaigns = (id, title, description, current_amount, needed
     current_amount,
     needed_amount,
     image,
-    createdBy,
+    createdBy
   });
 
 export const onceGetCampaigns = () =>

@@ -3,6 +3,8 @@ import { firebase, dbCampaigns } from '../../firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import { Button, Form , Modal, Segment, Progress } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import ImageUploader from '../ImageUploader';
+import placeholder from '../../media/images/pic-placeholder.png';
 
 class CreateCampaign extends Component {
   constructor(props) {
@@ -20,25 +22,15 @@ class CreateCampaign extends Component {
       createdBy: '',
     };
 
+    this.setUrl = this.setUrl.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChangeUsername = (event) => this.setState({username: event.target.value});
-  handleUploadStart = () => {
-    if (this.state.picture) {
-      firebase.storage.ref('images').child(this.state.picture).delete()
-    }
-    this.setState({isUploading: true, progress: 0});
+  
+  setUrl(url){
+    this.setState({pictureURL: url});
   }
-  handleProgress = (progress) => this.setState({progress});
-  handleUploadError = (error) => {
-    this.setState({isUploading: false});
-    console.error(error);
-  }
-  handleUploadSuccess = (filename) => {
-    this.setState({picture: filename, progress: 100, isUploading: false});
-    firebase.storage.ref('images').child(filename).getDownloadURL().then(url => this.setState({pictureURL: url}));
-  };
 
   handleSubmit(event) {
     event.preventDefault();
@@ -51,7 +43,6 @@ class CreateCampaign extends Component {
       image: this.state.pictureURL,
       createdBy: this.props.user.email,
     }
-    console.log(campaign.createdBy)
     dbCampaigns.doCreateCampaigns(campaign.id, campaign.title,campaign.description,campaign.currentAmount,campaign.neededAmount, campaign.image, campaign.createdBy)
       .then(() => {
         this.close();
@@ -67,6 +58,7 @@ class CreateCampaign extends Component {
     const isEnabled = title.length && description.length && neededAmount.length;
     const btnStyle = {marginBottom: 10};
     return (
+       this.props.user &&
       <Modal trigger={<Button className="ui teal button" style={btnStyle} onClick={() => this.setState({showModal: true})}>Create Campaign</Button>}
         open={this.state.showModal} onClose={this.close}>
         <Modal.Header>
@@ -80,22 +72,10 @@ class CreateCampaign extends Component {
             </Form.Group>
             <Form.TextArea label="Description" value={this.state.value} onChange={event => this.setState({description: event.target.value})} />
             <Form.Field>
-                {this.state.isUploading &&
-                  <Progress percent={this.state.progress} autoSuccess />
-                }
-                {this.state.pictureURL &&
-                  <img src={this.state.pictureURL} alt="news" />
-                }
-                <FileUploader
-                  accept="image/*"
-                  name="picture"
-                  randomizeFilename
-                  storageRef={firebase.storage.ref('images')}
-                  onUploadStart={this.handleUploadStart}
-                  onUploadError={this.handleUploadError}
-                  onUploadSuccess={this.handleUploadSuccess}
-                  onProgress={this.handleProgress}
-                />
+              <div className="news-image">
+                <img src={this.state.pictureUrl} alt="News-pic" />
+              </div>
+              <ImageUploader setUrl={this.setUrl}/>
               </Form.Field>
             <Button type="submit" disabled={!isEnabled}>Submit</Button>
           </Form>
