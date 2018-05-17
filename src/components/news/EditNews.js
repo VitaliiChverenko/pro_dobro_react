@@ -106,7 +106,8 @@ class EditNews extends Component {
           </Modal.Description>
         </Modal.Content>
       </Modal>
-      : false
+      : 
+      false
     )
   }
 }

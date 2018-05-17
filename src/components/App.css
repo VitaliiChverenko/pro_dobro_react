@@ -42,3 +42,11 @@
 .styleAboutUs h1, p {
   color: #777;
 }
+
+.footer-links {
+  color: white;
+}
+
+.footer-links:hover {
+  color: teal;
+}
