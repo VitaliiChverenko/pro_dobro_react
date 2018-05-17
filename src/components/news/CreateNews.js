@@ -81,6 +81,7 @@ class CreateNews extends Component {
                        id="title" 
                        name="title" 
                        placeholder="Title" 
+                       maxLength={50}
                        required />
               </Form.Field>
               <Form.Field>
