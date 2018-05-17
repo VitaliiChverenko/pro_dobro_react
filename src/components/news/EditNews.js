@@ -71,8 +71,8 @@ class EditNews extends Component {
             title.length > 0 &&
             description.length > 7;
     return (
-      this.props.user ?
-      <Modal trigger={<Button color="green" onClick={() => this.setState({showModal: true})}>Edit News</Button>}
+      this.props.user && this.props.user.isAdmin ?
+      <Modal trigger={<Button color="yellow" onClick={() => this.setState({showModal: true})}>Edit News</Button>}
              open={this.state.showModal} 
              onClose={this.close}>
         <Modal.Header>Edit News</Modal.Header>

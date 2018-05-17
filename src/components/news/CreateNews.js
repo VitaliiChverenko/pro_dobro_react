@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { dbNews } from '../../firebase';
 import { Button, Form, Modal } from 'semantic-ui-react';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import ImageUploader from '../ImageUploader';
 import placeholder from '../../media/images/pic-placeholder.png';
 
@@ -66,7 +66,8 @@ class CreateNews extends Component {
             title.length > 0 &&
             description.length > 0;
     return (
-      <Modal trigger={<Button onClick={() => this.setState({showModal: true})}>Create News</Button>}
+      this.props.user && this.props.user.isAdmin ? 
+      <Modal trigger={<Button color="green" onClick={() => this.setState({showModal: true})}>Create News</Button>}
              open={this.state.showModal} 
              onClose={this.close}>
         <Modal.Header>Create News</Modal.Header>
@@ -108,6 +109,8 @@ class CreateNews extends Component {
           </Modal.Description>
         </Modal.Content>
       </Modal>
+      :
+      false
     )
   }
 }
