@@ -73,7 +73,7 @@ class CreateCampaign extends Component {
             <Form.TextArea label="Description" value={this.state.value} onChange={event => this.setState({description: event.target.value})} />
             <Form.Field>
               <div className="news-image">
-                <img src={this.state.pictureUrl} alt="News-pic" />
+                <img src={this.state.pictureURL} alt="News-pic" />
               </div>
               <ImageUploader setUrl={this.setUrl}/>
               </Form.Field>

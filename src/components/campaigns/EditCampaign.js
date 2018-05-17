@@ -29,7 +29,7 @@ class EditCampaign extends Component {
   handleChangeUsername = (event) => this.setState({username: event.target.value});
 
   setUrl(url){
-    this.setState({pictureUrl: url});
+    this.setState({pictureURL: url});
   }
 
   handleSubmit(event) {
@@ -73,7 +73,7 @@ class EditCampaign extends Component {
             <Form.TextArea label="Description" value={this.state.description} onChange={event => this.setState({description: event.target.value})} />
             <Form.Field>
               <div className="campaign-image">
-                <img src={this.state.pictureUrl} alt="Campaign-pic" />
+                <img src={this.state.pictureURL} alt="Campaign-pic" />
               </div>
               <ImageUploader setUrl={this.setUrl}/>
               </Form.Field>
