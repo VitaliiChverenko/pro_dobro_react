@@ -41,7 +41,7 @@ class SignUpForm extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = (event) => {
+  onSubmit = event => {
     const {
       firstname,
       lastname,
@@ -87,7 +87,7 @@ class SignUpForm extends Component {
     return (
       <form onSubmit={this.onSubmit} className="ui form">
         <div className="field">
-          <label>First Name</label>
+          <label>First Name *</label>
           <input
               value={firstname}
               onChange={event => this.setState(byPropKey('firstname', event.target.value))}
@@ -96,7 +96,7 @@ class SignUpForm extends Component {
             />
         </div>
         <div className="field">
-          <label>Last Name</label>
+          <label>Last Name *</label>
           <input
             value={lastname}
             onChange={event => this.setState(byPropKey('lastname', event.target.value))}
@@ -105,7 +105,7 @@ class SignUpForm extends Component {
           />
         </div>
         <div className="field">
-          <label>Email Address</label>
+          <label>Email Address *</label>
           <input
             value={email}
             onChange={event => this.setState(byPropKey('email', event.target.value))}
@@ -114,7 +114,7 @@ class SignUpForm extends Component {
           />
         </div>
         <div className="field">
-          <label>Password</label>
+          <label>Password *</label>
           <input
             value={passwordOne}
             onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
@@ -123,7 +123,7 @@ class SignUpForm extends Component {
           />
         </div>
         <div className="field">
-          <label>Confirm Password</label>
+          <label>Confirm Password *</label>
           <input
             value={passwordTwo}
             onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
