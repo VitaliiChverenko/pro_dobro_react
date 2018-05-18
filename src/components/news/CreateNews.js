@@ -33,8 +33,7 @@ class CreateNews extends Component {
     this.setState({imageUrl: url});
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = () => {
     const createdAt = new Date().valueOf();
     const news = {
       title: this.state.title,
@@ -88,11 +87,9 @@ class CreateNews extends Component {
                 <img src={this.state.imageUrl} alt="News-pic" />
               </div>
               <ImageUploader setUrl={this.setUrl}/>
-              <Button positive 
-                      icon='checkmark' 
-                      labelPosition='right' 
+              <Button color="green"
                       content="Create News" 
-                      disabled={!isEnabled} 
+                      disabled={!isEnabled}
                       onClick={this.handleSubmit} />
             </Form>
           </Modal.Description>
