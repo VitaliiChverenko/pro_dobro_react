@@ -29,7 +29,6 @@ const App = () =>
         <Route exact path={ routes.SIGN_UP } component={SignUp} />
         <Route exact path={ routes.SIGN_IN } component={SignIn} />
         <Route exact path={ routes.PASSWORD_FORGET } component={PasswordForget} />
-        <Redirect from="*" to="/news" />
       </div>
       <Footer />
     </div>
