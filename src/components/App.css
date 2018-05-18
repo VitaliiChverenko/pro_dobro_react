@@ -41,11 +41,39 @@
 .styleAboutUs h1, p {
   color: #777;
 }
-
 .footer-links {
   color: white;
 }
 
 .footer-links:hover {
   color: teal;
+}
+.newsImageDiv{
+  height: 350px;
+  width: 300px;
+  margin-right: 15px
+}
+
+.newsImage{
+  height: 100%;
+  width: 300px;
+  background-size: cover;
+  background-position: center;
+}
+
+.newsDesc{
+  width: 600px;
+  height: 500px;
+  overflow-y:scroll;
+}
+
+.newsDesc p{
+text-align: justify
+}
+
+.avatar{
+  height: 200px;
+  width: 150px;
+  background-position: center;
+  background-size: cover;
 }

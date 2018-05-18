@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Form, Button, Modal, Checkbox } from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types'; 
+import ImageUploader from './ImageUploader';
 import avatar from '../media/images/avatar.jpeg';
 import { dbUsers } from '../firebase';
 
@@ -19,16 +20,14 @@ export class UserInfo extends Component{
       sex: '',
       openModal: false
     }
-    this.setInitialData = this.setInitialData.bind(this)
-    this.phoneValid = this.phoneValid.bind(this)
-    this.changeInfo = this.changeInfo.bind(this)
   }
 
   closeModal = () => this.setState({ openModal: false })
   handleChangeInfo = () => this.setState({openModal:true})
-  handleChangeSex = (e, { sex }) => this.setState({ sex })
+  handleChangeSex = (e, {sex}) => this.setState({sex})
+  setUrl = (url) => { this.setState({imageUrl: url}); }
 
-  setInitialData(props){
+  setInitialData = (props) => {
     if (props.user) {
       this.setState({
         firstname: props.user.firstname,
@@ -41,13 +40,14 @@ export class UserInfo extends Component{
     }
   }
 
-  changeInfo() {
+  changeInfo = () => {
     var userInfo = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
       phone: this.state.phone,
-      sex: this.state.sex
+      sex: this.state.sex,
+      imageUrl: this.state.imageUrl
     }
     let onChangeUser = dbUsers.doChangeUser(userInfo);
     if (onChangeUser) onChangeUser.then(() => {
@@ -55,8 +55,8 @@ export class UserInfo extends Component{
       this.setState({openModal:false})
     })
   }
-  
-  phoneValid(event){
+
+  phoneValid = (event) => {
     const re = /^[0-9\b]+$/;
     if (event.target.value === '' || re.test(event.target.value)) {
        this.setState({phone: event.target.value})
@@ -66,10 +66,10 @@ export class UserInfo extends Component{
   componentDidMount() {
     this.setInitialData(this.props);
   }
+
   componentWillReceiveProps(props) {
     this.setInitialData(props)
   }
-  
 
   render() {
     const { firstname, lastname, openModal, phone, sex } = this.state;
@@ -138,7 +138,7 @@ export class UserInfo extends Component{
               <img className='avatar' src={this.state.imageUrl} alt=''/>
             </div>
             <br />
-            <Button>Change photo</Button>
+              <ImageUploader setUrl={this.setUrl}/>
           </Form.Field>
         </div>
         : <Redirect to='/news' />

@@ -10,7 +10,7 @@ const ShowNews = (props) => (
       </h1>
       <Label attached='top right'>
         Posted at: {new Date(props.news.createdAt).toLocaleString()}
-      </Label> 
+      </Label>
     </Modal.Header>
     <Modal.Content image>
       <div className='newsImageDiv' style={{backgroundImage: `url('${placeholder}')`}}>
