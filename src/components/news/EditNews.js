@@ -40,21 +40,21 @@ class EditNews extends Component {
     }
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = () => {
     const news = {
       title: this.state.title,
       description: this.state.description,
       createdAt: this.state.createdAt,
       imageUrl: this.state.imageUrl
     }
+
     dbNews.doCreateNews(news.createdAt, news)
       .then(() => {
         this.close();
         this.setState();
         this.props.onUpdated();
       })
-  }
+    }
 
   close = () => {
     this.setState({ showModal: false });
@@ -97,9 +97,7 @@ class EditNews extends Component {
                   />
                 </div>
               <ImageUploader setUrl={this.setUrl}/>
-              <Button positive 
-                      icon='checkmark' 
-                      labelPosition='right' 
+              <Button color="green"
                       content="Edit News" 
                       disabled={!isEnabled} />
             </Form>
