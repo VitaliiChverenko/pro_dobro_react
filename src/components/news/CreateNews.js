@@ -16,8 +16,8 @@ const INIT_STATE = {
 };
 
 class CreateNews extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = INIT_STATE
   }
 
