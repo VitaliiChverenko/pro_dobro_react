@@ -14,7 +14,12 @@ export default class NewsList extends Component{
       loading: false,
       loaded: false,
       sortOrder: 'newest',
+      offset: 0,
     }
+  }
+
+  handleClick(offset) {
+    this.setState({offset});
   }
 
   componentDidMount(){

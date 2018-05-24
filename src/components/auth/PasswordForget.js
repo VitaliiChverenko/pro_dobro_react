@@ -4,19 +4,17 @@ import { Link, Redirect } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { connect } from 'react-redux';
 
-class PasswordForget extends Component {
-  render () {
-    return (
-      !this.props.user ?
-      <div className="ui three column centered grid">
-        <div className="column">
-          <h1>Password Forget</h1>
-          <PasswordForgetForm />
-        </div>
+const PasswordForget = props => {
+  return (
+    !props.user ?
+    <div className="ui three column centered grid">
+      <div className="column">
+        <h1>Password Forget</h1>
+        <PasswordForgetForm />
       </div>
-      : <Redirect to="/news" />
-    );
-  }
+    </div>
+    : <Redirect to="/news" />
+  );
 }
 
 const byPropKey = (propertyName, value) => () => ({

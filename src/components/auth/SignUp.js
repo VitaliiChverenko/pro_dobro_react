@@ -5,19 +5,17 @@ import { auth, dbUsers } from '../../firebase';
 import * as routes from '../../constants/routes';
 import { connect } from 'react-redux';
 
-class SignUp extends Component {
-  render () {
-    return (
-      !this.props.user ?
-      <div className="ui three column centered grid">
-        <div className="column">
-          <h1>Sign Up</h1>
-          <SignUpForm />
-        </div>
+const SignUp = props => {
+  return (
+    !props.user ?
+    <div className="ui three column centered grid">
+      <div className="column">
+        <h1>Sign Up</h1>
+        <SignUpForm />
       </div>
-      : <Redirect to="/news" />
-    );
-  }
+    </div>
+    : <Redirect to="/news" />
+  );
 }
 
 const INITIAL_STATE = {
