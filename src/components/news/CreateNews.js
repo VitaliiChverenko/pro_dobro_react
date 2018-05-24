@@ -16,31 +16,24 @@ const INIT_STATE = {
 };
 
 class CreateNews extends Component {
-  constructor() {
-    super();
-    this.state = INIT_STATE ;
-    
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.setUrl = this.setUrl.bind(this);
-    this.handledescriptionChange = this.handledescriptionChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.close = this.close.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = INIT_STATE
   }
 
-  handleTitleChange(e) {
+  handleTitleChange = (e) => {
     this.setState({title: e.target.value});
   }
 
-  handledescriptionChange(e) {
+  handledescriptionChange = (e) => {
     this.setState({description: e.target.value});
   }
 
-  setUrl(url){
+  setUrl = (url) => {
     this.setState({imageUrl: url});
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit = () => {
     const createdAt = new Date().valueOf();
     const news = {
       title: this.state.title,
@@ -56,8 +49,8 @@ class CreateNews extends Component {
       })
   }
 
-  close(){
-    this.setState({ showModal: false });
+  close = () => {
+    this.setState(INIT_STATE);
   }
 
   render() {
@@ -75,22 +68,17 @@ class CreateNews extends Component {
           <Modal.Description>
             <Form>
               <Form.Field>
-                <input type="text" 
-                       onChange={this.handleTitleChange} 
+                <input onChange={this.handleTitleChange} 
                        value={this.state.title} 
-                       className="form-control" 
-                       id="title" 
-                       name="title" 
+                       type="text" 
                        placeholder="Title" 
                        maxLength={50}
                        required />
               </Form.Field>
               <Form.Field>
-                <textarea className="form-control" 
-                          onChange={this.handledescriptionChange} 
+                <textarea onChange={this.handledescriptionChange} 
                           value={this.state.description} 
                           type="textarea" 
-                          id="description" 
                           placeholder="description" 
                           maxLength={1400} 
                           rows={7} />
@@ -99,11 +87,9 @@ class CreateNews extends Component {
                 <img src={this.state.imageUrl} alt="News-pic" />
               </div>
               <ImageUploader setUrl={this.setUrl}/>
-              <Button positive 
-                      icon='checkmark' 
-                      labelPosition='right' 
+              <Button color="green"
                       content="Create News" 
-                      disabled={!isEnabled} 
+                      disabled={!isEnabled}
                       onClick={this.handleSubmit} />
             </Form>
           </Modal.Description>

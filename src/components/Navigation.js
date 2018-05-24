@@ -11,7 +11,7 @@ const Navigation = props => {
       : <NavigationNonAuth />
 }
 
-const NavigationAuth = (props) =>
+const NavigationAuth = props =>
   <div className="ui breadcrumb position-right">
     <Link to={ routes.CAMPAIGNS } className="ui small inverted grey header">Campaigns</Link>
     <span className="ui inverted grey divider header">|</span>

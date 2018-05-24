@@ -4,7 +4,7 @@ import SortNews from './SortNews'
 import { dbNews } from '../../firebase';
 import CreateNews from './CreateNews';
 import './news-style.css'
-import { Dimmer } from 'semantic-ui-react';
+import { Dimmer, Pagination } from 'semantic-ui-react';
 
 export default class NewsList extends Component{
   constructor(props){
@@ -14,7 +14,8 @@ export default class NewsList extends Component{
       loading: false,
       loaded: false,
       sortOrder: 'newest',
-      offset: 0,
+      activePage: 1,
+      newsPerPage: 3,
     }
   }
 
@@ -23,7 +24,7 @@ export default class NewsList extends Component{
   }
 
   componentDidMount(){
-    this.onUpdateNews();
+    this.onUpdateNews();    
   }
 
   onUpdateNews = () => {
@@ -62,7 +63,31 @@ export default class NewsList extends Component{
     })
   }
 
+  handleActivePage = (e, {activePage}) => {
+    this.setState({
+      activePage: activePage
+    })
+  }
+
   render(){
+
+    const { news, activePage, newsPerPage } = this.state;
+    const allNewsKeys = Object.keys(news);
+
+    const indexOfLastNews = activePage * newsPerPage;
+    const indexOfFirstNews = indexOfLastNews - newsPerPage;
+
+    const sortedNewsKeys = this.sortChoose(allNewsKeys, this.state.sortOrder);
+    const currentNewsKeys = sortedNewsKeys.slice(indexOfFirstNews, indexOfLastNews);
+    
+    const totalPageNumber = allNewsKeys.length / newsPerPage;
+  
+    const renderNews = currentNewsKeys.map(key => {
+      return (<NewsItem onDelete={this.onDeleteNews}
+                        event={this.state.news[key]} 
+                        key={key}/>)
+    });
+
     return(
       <div className="news-wrapper">
         <Dimmer.Dimmable dimmed={this.state.loading} >
@@ -74,7 +99,7 @@ export default class NewsList extends Component{
                 </h2>
                 <CreateNews onCreated={this.onUpdateNews} />
               </div>
-            : 
+              : 
               <div className="ui container">
                 <div className="news-nav">
                   <CreateNews onCreated={this.onUpdateNews} />  
@@ -86,11 +111,15 @@ export default class NewsList extends Component{
                       </span>
                     </div>
                 </div>
-                {
-                  this.sortChoose(Object.keys(this.state.news), this.state.sortOrder)
-                    .map(key => <NewsItem onDelete={this.onDeleteNews}
-                       event={this.state.news[key]} key={key}/>)
-                }
+
+                { renderNews }
+
+                <div className="pagination-wrap">
+                  <Pagination 
+                    defaultActivePage={1} 
+                    totalPages={totalPageNumber} 
+                    onPageChange={this.handleActivePage}/>
+                </div>
               </div>
           }
         </Dimmer.Dimmable>

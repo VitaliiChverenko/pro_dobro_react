@@ -11,7 +11,7 @@ export default class CampaignItem extends Component {
     }
   }
   render() {
-    const progress = this.props.campaign.current_amount/this.props.campaign.needed_amount*100;
+    const progress = (this.props.campaign.current_amount/this.props.campaign.needed_amount*100).toFixed(1)  ;
     const background = this.props.campaign.image ? (
       {backgroundColor: 'white'}
     ) : (

@@ -18,23 +18,18 @@ const INIT_STATE = {
 class EditNews extends Component {
   constructor(props) {
     super(props);
-    this.state = INIT_STATE;
-
-    this.setInitialData = this.setInitialData.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.close = this.close.bind(this);
-    this.setUrl = this.setUrl.bind(this);
+    this.state = INIT_STATE
   }
 
   componentDidMount() {
     this.setInitialData(this.props);
   }
 
-  setUrl(url){
+  setUrl = (url) => {
     this.setState({imageUrl: url});
   }
 
-  setInitialData(props){
+  setInitialData = (props) => {
     if (props.news) {
       this.setState({
         title: props.news.title,
@@ -45,23 +40,23 @@ class EditNews extends Component {
     }
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit = () => {
     const news = {
       title: this.state.title,
       description: this.state.description,
       createdAt: this.state.createdAt,
       imageUrl: this.state.imageUrl
     }
+
     dbNews.doCreateNews(news.createdAt, news)
       .then(() => {
         this.close();
         this.setState();
         this.props.onUpdated();
       })
-  }
+    }
 
-  close(){
+  close = () => {
     this.setState({ showModal: false });
   }
 
@@ -80,43 +75,37 @@ class EditNews extends Component {
           <Modal.Description>
             <Form onSubmit={this.handleSubmit} >
               <Form.Field>
-                <input type="text" 
-                       onChange={event => this.setState({title: event.target.value})} 
+                <input onChange={event => this.setState({title: event.target.value})} 
                        value={this.state.title} 
-                       className="form-control" 
-                       id="title" 
-                       name="title" 
+                       type="text" 
                        placeholder="Title" 
                        maxLength={50}
                        required />
               </Form.Field>
               <Form.Field>
-                <textarea className="form-control" 
-                          onChange={event => this.setState({description: event.target.value})}
-                          value={this.state.description} 
-                          type="textarea" 
-                          id="description" 
-                          placeholder="Description" 
-                          maxLength={1400} 
+                <textarea onChange={event => this.setState({description: event.target.value})}
+                          value={this.state.description}
+                          type="textarea"
+                          placeholder="Description"
+                          maxLength={1400}
                           rows={7} />
               </Form.Field> 
                 <div className="news-image">
                   <img src={this.state.imageUrl || placeholder}
-                    alt="News"
-                    onError={e => e.target.src = placeholder} 
+                       alt="News"
+                       onError={e => e.target.src = placeholder} 
                   />
                 </div>
               <ImageUploader setUrl={this.setUrl}/>
-              <Button positive 
-                      icon='checkmark' 
-                      labelPosition='right' 
+              <Button color="green"
                       content="Edit News" 
                       disabled={!isEnabled} />
             </Form>
           </Modal.Description>
         </Modal.Content>
       </Modal>
-      : false
+      : 
+      false
     )
   }
 }
