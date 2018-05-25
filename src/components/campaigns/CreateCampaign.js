@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { firebase, dbCampaigns } from '../../firebase';
-import FileUploader from 'react-firebase-file-uploader';
-import { Button, Form , Modal, Segment, Progress } from 'semantic-ui-react'
+import { dbCampaigns } from '../../firebase';
+import { Button, Form , Modal, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import ImageUploader from '../ImageUploader';
-import placeholder from '../../media/images/pic-placeholder.png';
 
 class CreateCampaign extends Component {
   constructor(props) {

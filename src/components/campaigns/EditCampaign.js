@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { firebase, dbCampaigns } from '../../firebase';
-import FileUploader from 'react-firebase-file-uploader';
+import { dbCampaigns } from '../../firebase';
 import { connect } from "react-redux";
-import { Button, Form , Modal, Segment, Progress } from 'semantic-ui-react'
+import { Button, Form , Modal, Segment } from 'semantic-ui-react'
 import ImageUploader from '../ImageUploader';
-import placeholder from '../../media/images/pic-placeholder.png';
 
 class EditCampaign extends Component {
   constructor(props) {
@@ -58,7 +56,7 @@ class EditCampaign extends Component {
     const {title, description, neededAmount} = this.state;
     const isEnabled = title.length && description.length && neededAmount.length;
     return (
-      this.props.user.email == this.state.createdBy &&
+      this.props.user && this.props.user.email === this.state.createdBy &&
       <Modal trigger={<Button onClick={() => this.setState({showModal: true})}>EditCampaign</Button>} 
         open={this.state.showModal} onClose={this.close}>
         <Modal.Header>
