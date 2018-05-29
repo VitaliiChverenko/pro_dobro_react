@@ -19,6 +19,10 @@ export default class NewsList extends Component{
     }
   }
 
+  handleClick(offset) {
+    this.setState({offset});
+  }
+
   componentDidMount(){
     this.onUpdateNews();    
   }

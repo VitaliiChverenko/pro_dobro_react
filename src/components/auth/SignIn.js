@@ -6,21 +6,19 @@ import { PasswordForgetLink } from './PasswordForget';
 import { auth, dbUsers } from '../../firebase';
 import { connect } from 'react-redux';
 
-class SignIn extends Component {
-  render () {
-    return (
-      !this.props.user ?
-      <div className="ui three column centered grid">
-        <div className="column">
-          <h1>Sign In</h1>
-          <SignInForm />
-          <PasswordForgetLink />
-          <SignUpLink />
-        </div>
+const SignIn = props => {
+  return (
+    !props.user ?
+    <div className="ui three column centered grid">
+      <div className="column">
+        <h1>Sign In</h1>
+        <SignInForm />
+        <PasswordForgetLink />
+        <SignUpLink />
       </div>
-      : <Redirect to="/news" />
-    );
-  }   
+    </div>
+    : <Redirect to="/news" />
+  ); 
 }
 
 const byPropKey = (propertyName, value) => () => ({
