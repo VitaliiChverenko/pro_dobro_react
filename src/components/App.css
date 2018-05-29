@@ -6,6 +6,7 @@
 }
 .main-content {
   flex: 1;
+  position: relative;
 }
 
 .newsImageDiv{
@@ -76,4 +77,8 @@ text-align: justify
   width: 150px;
   background-position: center;
   background-size: cover;
+}
+.pagination-wrap{
+  margin-top: 1rem;
+  text-align: center;
 }

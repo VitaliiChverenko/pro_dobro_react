@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NewsItem from './NewsItem';
 import SortNews, { sortChoose } from './SortNews';
-import NewsPagination from './NewsPagination';
+import ItemsPagination, { paginate } from '../ItemsPagination';
 import { dbNews } from '../../firebase';
 import CreateNews from './CreateNews';
 import './news-style.css'
@@ -15,7 +15,6 @@ export default class NewsList extends Component{
       loading: false,
       loaded: false,
       sortOrder: 'newest',
-      renderKeys: [],
       activePage: 1,
       newsPerPage: 3,
     }
@@ -36,8 +35,11 @@ export default class NewsList extends Component{
     })
   }
 
-  onDeleteNews = (key) => {
-    dbNews.doDeleteNews(key, this.onUpdateNews)
+  onDeleteNews = (item) => {
+    dbNews.doDeleteNews(item, this.onUpdateNews);
+    this.setState({
+      activePage: 1
+    });
   }
 
   isEmpty = obj => Object.keys(obj).length === 0
@@ -57,8 +59,10 @@ export default class NewsList extends Component{
   render(){
     const allNewsKeys = Object.keys(this.state.news);
     const sortedNewsKeys = sortChoose(allNewsKeys, this.state.sortOrder);
-    const renderNews = sortedNewsKeys.map(key => {
+    const paginatedNewsKeys = paginate(sortedNewsKeys, this.state.activePage, this.state.newsPerPage);
+    const renderNews = paginatedNewsKeys.map(key => {
       return (<NewsItem onDelete={this.onDeleteNews}
+                        onUpdated={this.onUpdateNews}
                         event={this.state.news[key]} 
                         key={key}/>)
     });
@@ -86,10 +90,10 @@ export default class NewsList extends Component{
                       </span>
                     </div>
                 </div>
-                <NewsPagination 
-                  activePage={this.state.activePage} 
-                  newsPerPage={this.state.newsPerPage} 
-                  newsArray={renderNews}
+                {renderNews}
+                <ItemsPagination 
+                  itemsPerPage={this.state.newsPerPage} 
+                  itemsArray={sortedNewsKeys}
                   updActivePage={this.handleActivePage}
                 />
               </div>

@@ -23,9 +23,19 @@ class ImageUploader extends Component {
     console.error(error);
   }
   handleUploadSuccess = (filename) => {
-    this.setState({image: filename, progress: 100, isUploading: false});
-    firebase.storage.ref('images').child(filename)
-    .getDownloadURL().then(url => this.props.setUrl(url));
+    this.setState({
+      image: filename, 
+      progress: 100, 
+      isUploading: false
+    });
+    firebase.storage
+      .ref('images')
+      .child(filename)
+      .getDownloadURL()
+      .then(url => {
+        this.props.setUrl(url)
+        this.props.setName(filename)
+      });
   };
  
   render() {
@@ -40,7 +50,6 @@ class ImageUploader extends Component {
           <FileUploader
             accept="image/*"
             name="image"
-            randomizeFilename
             storageRef={firebase.storage.ref('images')}
             onUploadStart={this.handleUploadStart}
             onUploadError={this.handleUploadError}

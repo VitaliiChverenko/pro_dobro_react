@@ -1,4 +1,4 @@
-import { db } from './firebase';
+import { db, storage } from './firebase';
 
 export const onceGetNews = () =>
   db.ref('news').once('value');
@@ -8,10 +8,23 @@ export const doCreateNews = (id, params) =>
     ...params
   });
 
-export const doDeleteNews = (id, callback) => {
-  db.ref(`news/${id}`).remove()
-  .then(callback)
-  .catch(function(error) {
-    console.error("Error removing document: ", error);
-  });
+export const doDeleteNews = (item, callback) => {
+  db.ref(`news/${item.createdAt}`)
+    .remove()
+    .then(doDeleteNewsImg(item.image, callback))
+    .catch(function(error) {
+      console.error("Error removing document: ", error);
+    });
+  console.log(item)
+}
+
+export const doDeleteNewsImg = (image, callback) => {
+  storage.ref().child(`images/${image}`)
+    .delete()
+    .then(callback)
+    .catch(function(error) {
+      console.log('error', error)
+      callback()
+    })
+    
 }
