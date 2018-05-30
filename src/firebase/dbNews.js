@@ -14,6 +14,8 @@ export const doEditNews = (key, params) =>
   db.ref(`news/${key}`).update({
     ...params
   });
+export const doEditNews = (key, params) => 
+  db.ref(`news/${key}`).update({...params});
 
 export const doDeleteNews = (key, item) => 
   db.ref(`news/${key}`)

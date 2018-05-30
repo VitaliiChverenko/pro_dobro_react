@@ -6,7 +6,7 @@ const deleteNews = (props) => {
   return (
     props.user && props.user.isAdmin ?
       <Button color='red' 
-              onClick={() => props.onDelete(props.news)}
+              onClick={() => props.onDelete(props.id, props.news)}
       >Delete news</Button>
       :
       true
@@ -17,3 +17,9 @@ export default connect (
     user: state.auth
   })
 )(deleteNews);
+// {
+//   props.user && props.user.isAdmin ?
+//     <Button color='red' onClick={() => props.onDelete(props.id, props.event)}>Delete news</Button>
+//     :
+//     true
+// }
