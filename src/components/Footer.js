@@ -7,7 +7,7 @@ import { Grid, Header, Icon } from 'semantic-ui-react'
 const Footer = () =>{
     return(
       <div className="ui inverted segment no-margin">
-       <Grid className="ui container">
+       <Grid stackable className="ui container">
         <Grid.Row  >
           <Grid.Column width={5} color='black'  textAlign='left'>
             <Header size='small' color='teal' textAlign='left'>OUR GOALS</Header>
