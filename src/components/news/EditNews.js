@@ -29,6 +29,10 @@ class EditNews extends Component {
     this.setState({imageUrl: url});
   }
 
+  setImage = (image) => {
+    this.setState({image});
+  }
+
   setInitialData = (props) => {
     if (props.news) {
       this.setState({
@@ -45,7 +49,8 @@ class EditNews extends Component {
       title: this.state.title,
       description: this.state.description,
       createdAt: this.state.createdAt,
-      imageUrl: this.state.imageUrl
+      imageUrl: this.state.imageUrl,
+      image: this.state.image,
     }
 
     dbNews.doCreateNews(news.createdAt, news)
@@ -96,7 +101,9 @@ class EditNews extends Component {
                        onError={e => e.target.src = placeholder} 
                   />
                 </div>
-              <ImageUploader setUrl={this.setUrl}/>
+              <ImageUploader setUrl={this.setUrl}
+                             setName={this.setImage}
+              />
               <Button color="green"
                       content="Edit News" 
                       disabled={!isEnabled} />

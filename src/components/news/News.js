@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import NewsItem from './NewsItem'
-import SortNews from './SortNews'
+import NewsItem from './NewsItem';
+import SortNews, { sortChoose } from './SortNews';
+import ItemsPagination, { paginate } from '../ItemsPagination';
 import { dbNews } from '../../firebase';
 import CreateNews from './CreateNews';
 import './news-style.css'
-import { Dimmer, Pagination } from 'semantic-ui-react';
+import { Dimmer } from 'semantic-ui-react';
 
 export default class NewsList extends Component{
   constructor(props){
@@ -19,12 +20,8 @@ export default class NewsList extends Component{
     }
   }
 
-  handleClick(offset) {
-    this.setState({offset});
-  }
-
-  componentDidMount(){
-    this.onUpdateNews();    
+  componentWillMount(){
+    this.onUpdateNews();
   }
 
   onUpdateNews = () => {
@@ -38,24 +35,14 @@ export default class NewsList extends Component{
     })
   }
 
-  onDeleteNews = (key) => {
-    dbNews.doDeleteNews(key, this.onUpdateNews)
+  onDeleteNews = (item) => {
+    dbNews.doDeleteNews(item, this.onUpdateNews);
+    this.setState({
+      activePage: 1
+    });
   }
 
   isEmpty = obj => Object.keys(obj).length === 0
-
-  sortByNewest = arr => arr.sort((a, b) => b - a)
-  
-  sortByOldest = arr => arr.sort((a, b) => a - b)
-  
-  sortChoose = (arr, sortMethod) => {
-    if (sortMethod === 'newest') {
-      return this.sortByNewest(arr)
-    }
-    if (sortMethod === 'oldest') {
-      return this.sortByOldest(arr)
-    }
-  }
 
   updateSort = (value) => {
     this.setState({
@@ -63,31 +50,23 @@ export default class NewsList extends Component{
     })
   }
 
-  handleActivePage = (e, {activePage}) => {
+  handleActivePage = (activePage) => {
     this.setState({
-      activePage: activePage
+      activePage
     })
   }
 
   render(){
-
-    const { news, activePage, newsPerPage } = this.state;
-    const allNewsKeys = Object.keys(news);
-
-    const indexOfLastNews = activePage * newsPerPage;
-    const indexOfFirstNews = indexOfLastNews - newsPerPage;
-
-    const sortedNewsKeys = this.sortChoose(allNewsKeys, this.state.sortOrder);
-    const currentNewsKeys = sortedNewsKeys.slice(indexOfFirstNews, indexOfLastNews);
-    
-    const totalPageNumber = allNewsKeys.length / newsPerPage;
-  
-    const renderNews = currentNewsKeys.map(key => {
+    const allNewsKeys = Object.keys(this.state.news);
+    const sortedNewsKeys = sortChoose(allNewsKeys, this.state.sortOrder);
+    const paginatedNewsKeys = paginate(sortedNewsKeys, this.state.activePage, this.state.newsPerPage);
+    const renderNews = paginatedNewsKeys.map(key => {
       return (<NewsItem onDelete={this.onDeleteNews}
+                        onUpdated={this.onUpdateNews}
                         event={this.state.news[key]} 
                         key={key}/>)
     });
-
+    
     return(
       <div className="news-wrapper">
         <Dimmer.Dimmable dimmed={this.state.loading} >
@@ -111,15 +90,12 @@ export default class NewsList extends Component{
                       </span>
                     </div>
                 </div>
-
-                { renderNews }
-
-                <div className="pagination-wrap">
-                  <Pagination 
-                    defaultActivePage={1} 
-                    totalPages={totalPageNumber} 
-                    onPageChange={this.handleActivePage}/>
-                </div>
+                {renderNews}
+                <ItemsPagination 
+                  itemsPerPage={this.state.newsPerPage} 
+                  itemsArray={sortedNewsKeys}
+                  updActivePage={this.handleActivePage}
+                />
               </div>
           }
         </Dimmer.Dimmable>

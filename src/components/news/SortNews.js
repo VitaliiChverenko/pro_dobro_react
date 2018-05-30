@@ -21,4 +21,18 @@ const SortNews = props => {
   )
 };
 
-export default SortNews
+const sortByNewest = arr => arr.sort((a, b) => b - a)
+  
+const sortByOldest = arr => arr.sort((a, b) => a - b)
+
+const sortChoose = (arr, sortMethod) => {
+  if (sortMethod === 'newest') {
+    return sortByNewest(arr)
+  }
+  if (sortMethod === 'oldest') {
+    return sortByOldest(arr)
+  }
+}
+
+export default SortNews;
+export { sortChoose };

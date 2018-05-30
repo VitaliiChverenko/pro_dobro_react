@@ -52,10 +52,10 @@ h2.no-news{
   font-weight: 300;
   font-size: 12px;
 }
-.ui.container > .ui.stackable.grid > .column.news-pic-wrapper{
+.ui.stackable.grid > .column.news-pic-wrapper{
   padding: 0 !important;
 }
-.ui.container > .ui.stackable.grid > .column.news-description{
+.ui.container >.ui.stackable.grid > .column.news-description{
   padding: 1rem !important;
 }
 .news-image {

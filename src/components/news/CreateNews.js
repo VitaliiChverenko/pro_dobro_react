@@ -32,6 +32,10 @@ class CreateNews extends Component {
   setUrl = (url) => {
     this.setState({imageUrl: url});
   }
+  
+  setImage = (image) => {
+    this.setState({image});
+  }
 
   handleSubmit = () => {
     const createdAt = new Date().valueOf();
@@ -39,7 +43,8 @@ class CreateNews extends Component {
       title: this.state.title,
       description: this.state.description,
       createdAt,
-      imageUrl: this.state.imageUrl
+      imageUrl: this.state.imageUrl,
+      image: this.state.image,      
     }
     dbNews.doCreateNews(createdAt, news)
       .then(() => {
@@ -86,7 +91,9 @@ class CreateNews extends Component {
               <div className="news-image">
                 <img src={this.state.imageUrl} alt="News-pic" />
               </div>
-              <ImageUploader setUrl={this.setUrl}/>
+              <ImageUploader setUrl={this.setUrl}
+                             setName={this.setImage}
+              />
               <Button color="green"
                       content="Create News" 
                       disabled={!isEnabled}
