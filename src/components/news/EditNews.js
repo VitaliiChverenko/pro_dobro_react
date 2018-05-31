@@ -25,12 +25,8 @@ class EditNews extends Component {
     this.setInitialData(this.props)
   }
 
-  setUrl = (url) => {
-    this.setState({imageUrl: url})
-  }
-
-  setImage = (image) => {
-    this.setState({image})
+  handleValue = (key, value) => {
+    this.setState({[key]: value})
   }
 
   setInitialData = (props) => {
@@ -87,7 +83,7 @@ class EditNews extends Component {
           <Modal.Description>
             <Form onSubmit={this.handleSubmit} >
               <Form.Field>
-                <input onChange={event => this.setState({title: event.target.value})} 
+                <input onChange={event => this.handleValue('title', event.target.value)} 
                        value={this.state.title} 
                        type="text" 
                        placeholder="Title" 
@@ -95,7 +91,7 @@ class EditNews extends Component {
                        required />
               </Form.Field>
               <Form.Field>
-                <textarea onChange={event => this.setState({description: event.target.value})}
+                <textarea onChange={event => this.handleValue('description', event.target.value)}
                           value={this.state.description}
                           type="textarea"
                           placeholder="Description"
@@ -108,8 +104,8 @@ class EditNews extends Component {
                        onError={e => e.target.src = placeholder} 
                   />
                 </div>
-              <ImageUploader setUrl={this.setUrl}
-                             setImage={this.setImage}/>
+              <ImageUploader setUrl={url => this.handleValue('imageUrl', url)}
+                             setImage={image => this.handleValue('image', image)}/>
               <Button color="green"
                       content="Edit News" 
                       disabled={!isEnabled} />
