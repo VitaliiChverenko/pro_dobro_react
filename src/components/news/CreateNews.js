@@ -21,22 +21,10 @@ class CreateNews extends Component {
     this.state = INIT_STATE;
   }
 
-  handleDescription = (e) => {
-    this.setState({description: e.target.value})
-  }
-
-  handleTitle = (e) => {
-    this.setState({title: e.target.value})
-  }
-
-  setUrl = (url) => {
-    this.setState({imageUrl: url})
+  handleValue = (key, value) => {
+    this.setState({[key]: value})
   }
   
-  setImage = (image) => {
-    this.setState({image})
-  }
-
   handleSubmit = () => {
     const createdAt = new Date().valueOf();
     const news = {
@@ -78,7 +66,7 @@ class CreateNews extends Component {
           <Modal.Description>
             <Form onSubmit={this.handleSubmit}>
               <Form.Field>
-                <input onChange={this.handleTitle} 
+                <input onChange={event => this.handleValue('title', event.target.value)} 
                        value={this.state.title} 
                        type="text" 
                        placeholder="Title" 
@@ -86,7 +74,7 @@ class CreateNews extends Component {
                        required />
               </Form.Field>
               <Form.Field>
-                <textarea onChange={this.handleDescription} 
+                <textarea onChange={event => this.handleValue('description', event.target.value)} 
                           value={this.state.description} 
                           type="textarea" 
                           placeholder="description" 
@@ -96,8 +84,8 @@ class CreateNews extends Component {
               <div className="news-image">
                 <img src={this.state.imageUrl} alt="News-pic" />
               </div>
-              <ImageUploader setUrl={this.setUrl}
-                             setImage={this.setImage}/>
+              <ImageUploader setUrl={url => this.handleValue('imageUrl', url)}
+                             setImage={image => this.handleValue('image', image)}/>
               <Button color="green"
                       content="Create News" 
                       disabled={!isEnabled} />
