@@ -30,13 +30,9 @@ class CreateNews extends Component {
   }
 
   setUrl = (url) => {
-    this.setState({imageUrl: url});
+    this.setState({imageUrl: url})
   }
   
-  setImage = (image) => {
-    this.setState({image});
-  }
-
   setImage = (image) => {
     this.setState({image})
   }
@@ -64,7 +60,7 @@ class CreateNews extends Component {
   }
 
   close = () => {
-    this.setState(INIT_STATE);
+    this.setState(INIT_STATE)
   }
 
   render() {

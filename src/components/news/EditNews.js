@@ -22,11 +22,11 @@ class EditNews extends Component {
   }
 
   componentDidMount() {
-    this.setInitialData(this.props);
+    this.setInitialData(this.props)
   }
 
   setUrl = (url) => {
-    this.setState({imageUrl: url});
+    this.setState({imageUrl: url})
   }
 
   setImage = (image) => {

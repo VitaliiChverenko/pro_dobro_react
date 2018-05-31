@@ -1,7 +1,9 @@
 import { db, storage } from './firebase';
 
 export const onceGetNews = () =>
-  db.ref('news').once('value');
+  db.ref('news')
+    .orderByChild('createdAt')
+    .once('value');
 
 export const doCreateNews = params => 
   db.ref('news').push().set({
@@ -9,7 +11,9 @@ export const doCreateNews = params =>
   });
   
 export const doEditNews = (key, params) => 
-  db.ref(`news/${key}`).update({...params});
+  db.ref(`news/${key}`).update({
+    ...params
+  });
 
 export const doDeleteNews = (key, item) => 
   db.ref(`news/${key}`)
