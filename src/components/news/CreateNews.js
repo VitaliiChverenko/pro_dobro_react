@@ -17,24 +17,24 @@ const INIT_STATE = {
 
 class CreateNews extends Component {
   constructor(props) {
-    super(props);
-    this.state = INIT_STATE
+    super(props); 
+    this.state = INIT_STATE;
   }
 
-  handleTitleChange = (e) => {
-    this.setState({title: e.target.value});
+  handleDescription = (e) => {
+    this.setState({description: e.target.value})
   }
 
-  handledescriptionChange = (e) => {
-    this.setState({description: e.target.value});
+  handleTitle = (e) => {
+    this.setState({title: e.target.value})
   }
 
   setUrl = (url) => {
-    this.setState({imageUrl: url});
+    this.setState({imageUrl: url})
   }
   
   setImage = (image) => {
-    this.setState({image});
+    this.setState({image})
   }
 
   handleSubmit = () => {
@@ -44,9 +44,9 @@ class CreateNews extends Component {
       description: this.state.description,
       createdAt,
       imageUrl: this.state.imageUrl,
-      image: this.state.image,      
+      image: this.state.image
     }
-    dbNews.doCreateNews(createdAt, news)
+    dbNews.doCreateNews(news)
       .then(() => {
         this.close();
         this.props.onCreated();
@@ -54,8 +54,13 @@ class CreateNews extends Component {
       })
   }
 
+  cancelForm = () => {
+    dbNews.doDeleteNewsImg(this.state.image)
+    .then(this.close())
+  }
+
   close = () => {
-    this.setState(INIT_STATE);
+    this.setState(INIT_STATE)
   }
 
   render() {
@@ -71,9 +76,9 @@ class CreateNews extends Component {
         <Modal.Header>Create News</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Form>
+            <Form onSubmit={this.handleSubmit}>
               <Form.Field>
-                <input onChange={this.handleTitleChange} 
+                <input onChange={this.handleTitle} 
                        value={this.state.title} 
                        type="text" 
                        placeholder="Title" 
@@ -81,7 +86,7 @@ class CreateNews extends Component {
                        required />
               </Form.Field>
               <Form.Field>
-                <textarea onChange={this.handledescriptionChange} 
+                <textarea onChange={this.handleDescription} 
                           value={this.state.description} 
                           type="textarea" 
                           placeholder="description" 
@@ -92,12 +97,13 @@ class CreateNews extends Component {
                 <img src={this.state.imageUrl} alt="News-pic" />
               </div>
               <ImageUploader setUrl={this.setUrl}
-                             setName={this.setImage}
-              />
+                             setImage={this.setImage}/>
               <Button color="green"
                       content="Create News" 
-                      disabled={!isEnabled}
-                      onClick={this.handleSubmit} />
+                      disabled={!isEnabled} />
+              <Button color="red"
+                      content="Cancel"
+                      onClick={this.cancelForm} />
             </Form>
           </Modal.Description>
         </Modal.Content>

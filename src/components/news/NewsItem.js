@@ -25,8 +25,8 @@ const NewsItem = (props) => {
         <p>{props.event.description}</p>
         <div className="news-btns">
           <ShowNews news={props.event}/> 
-          <EditNews onUpdated={props.onUpdated} news={props.event}/>
-          <DeleteNews onDelete={props.onDelete} news={props.event}/>        
+          <EditNews onUpdated={props.onUpdated} id={props.id} news={props.event}/>
+          <DeleteNews onDelete={props.onDelete} id={props.id} news={props.event}/>        
         </div>
       </div>
     </div>
