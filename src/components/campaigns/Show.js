@@ -7,6 +7,12 @@ export default class ShowCampaign extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
+      title: props.campaign.title,
+      description: props.campaign.description,
+      neededAmount: props.campaign.needed_amount,
+      picture: props.campaign.picture,
+      pictureURL: props.campaign.image,
+      campaign: props.campaign,
       currentAmount: props.campaign.current_amount,
       amount: 10
     }
@@ -39,13 +45,14 @@ export default class ShowCampaign extends React.Component{
   }			
   
  render(){
+    
   let env = 'sandbox';
   let currency = 'USD';
+  
   const client = {
     sandbox: 'AawwEFkpqkM87pOatvnKXcJzWB50af1F9c4mBvUEhWzEOT4X6FxGG1vz1pK1sFuOpT2h9bVI5uSEu3X_',
     production: 'EPqdAXhPYINeRTeqJXms3oCCYeg591pVooi8uQeB7KZIwqzhHaPnFrh0Zt02usE5E9C_PvWrso0U8EqI',
   }
-  
    return(
     <Modal key='modal' closeIcon open={this.props.openModal} onClose={this.props.onCloseModal}>
       <Modal.Header className="ui teal header">
