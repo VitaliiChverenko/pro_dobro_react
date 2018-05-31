@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import { Form, Button, Modal, Checkbox } from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types'; 
-import ImageUploader from './ImageUploader';
-import avatar from '../media/images/avatar.jpeg';
 import { dbUsers } from '../firebase';
 
 import {connect} from 'react-redux';
+import UserInfoForm from './UserInfoForm';
 
 export class UserInfo extends Component{
   constructor(props){
@@ -22,11 +20,6 @@ export class UserInfo extends Component{
     }
   }
 
-  closeModal = () => this.setState({ openModal: false })
-  handleChangeInfo = () => this.setState({openModal:true})
-  handleChangeSex = (e, {sex}) => this.setState({sex})
-  setUrl = (url) => { this.setState({imageUrl: url}); }
-
   setInitialData = (props) => {
     if (props.user) {
       this.setState({
@@ -37,6 +30,7 @@ export class UserInfo extends Component{
         imageUrl: props.user.imageUrl,
         sex: props.user.sex
       });
+     
     }
   }
 
@@ -72,75 +66,30 @@ export class UserInfo extends Component{
   }
 
   render() {
-    const { firstname, lastname, openModal, phone, sex } = this.state;
-    const enabled = firstname.length && lastname.length && phone.length === 12;
+    const { firstname, lastname, openModal, phone, sex, imageUrl } = this.state;
+    const enableSubmit = firstname.length && lastname.length && phone.length === 12;
 
     return this.props.user ?
-      <div className="ui five wide column grid">
-        <div className='one column'>
-        </div>
-        <div className='four wide column'>
-          <Form>
-            <Form.Field>
-              <label>First Name</label>
-              <input onChange={event => this.setState({firstname: event.target.value})} 
-                value = {firstname} placeholder='First Name' />
-            </Form.Field>
-            <Form.Field>
-              <label>Last Name</label>
-              <input onChange={event => this.setState({lastname: event.target.value})}
-              value = {lastname} placeholder='Last Name' />
-            </Form.Field>
-            <Form.Field>
-              <label>Phone number</label>
-              <input onChange={this.phoneValid}
-              value = {phone} placeholder='Phone number' />
-            </Form.Field>
-            <Form.Field>
-            <label>Choose sex</label>
-              <Checkbox
-                radio
-                label='Male'
-                name='checkboxRadioGroup'
-                sex='Male'
-                checked={sex === 'Male'}
-                onChange={this.handleChangeSex}
-              />
-            </Form.Field>
-            <Form.Field>
-              <Checkbox
-                radio
-                label='Female'
-                name='checkboxRadioGroup'
-                sex='Female'
-                checked={sex === 'Female'}
-                onChange={this.handleChangeSex}
-              />
-            </Form.Field>
-            <Modal size='tiny' open={openModal}>
-              <Modal.Header>
-              <p>Do you want to change user info?</p>
-              </Modal.Header>
-              <Modal.Actions>
-                <Button onClick={this.closeModal} negative content='No' />
-                <Button onClick={this.changeInfo} positive icon='checkmark' labelPosition='right' content='Yes' />
-              </Modal.Actions>
-            </Modal>
-            <Button disabled={!enabled} inverted color='green' type='submit' onClick={this.handleChangeInfo}>Submit</Button>
-            <Button inverted color='red' onClick={() => this.setInitialData(this.props)}>Reset</Button>
-          </Form>
-        </div>
-        <div className='four wide column'>
-        </div>
-          <Form.Field>
-            <br />
-            <div className='avatar' style={{backgroundImage: `url('${avatar}')` }}>
-              <img className='avatar' src={this.state.imageUrl} alt=''/>
-            </div>
-            <br />
-              <ImageUploader setUrl={this.setUrl}/>
-          </Form.Field>
-        </div>
+    <div>
+      <UserInfoForm 
+        handleChangeFirstName={(event) => this.setState({firstname: event.target.value})}
+        handleChangeLastName={(event) => this.setState({lastname: event.target.value})}
+        handleChangeSex={(e, {sex}) => this.setState({sex})}
+        setUrl={(url) => { this.setState({imageUrl: url})}}
+        handleChangeInfo={() => this.setState({openModal:!openModal})}
+        firstname={firstname}
+        lastname={lastname}
+        phone={phone}
+        sex={sex}
+        imageUrl={imageUrl}
+        phoneValid={this.phoneValid}
+        userprops={this.props}
+        setInitialData={this.setInitialData}
+        enableSubmit={enableSubmit}
+        changeInfo={this.changeInfo}
+        openModal={openModal}
+        />
+    </div>
         : <Redirect to='/news' />
   }
 }
@@ -155,11 +104,12 @@ UserInfo.propTypes = {
   })
 }
 
-export default connect(
-  state => ({
-    user: state.auth
-  }),
-  dispatch => ({
-    onUpdateInfo: user => dispatch({type: 'SET_USER', payload: user}),
-  })
-)(UserInfo);
+const mapStateToProps = (state) => {
+  return {user: state.auth}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {onUpdateInfo: user => dispatch({type: 'SET_USER', payload: user})}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);

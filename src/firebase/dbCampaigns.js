@@ -10,6 +10,11 @@ export const doCreateCampaigns = (id, title, description, current_amount, needed
     image,
     createdBy,
   });
+  
+export const doMakeDonate = (id, current_amount) =>
+  db.ref(`campaigns/${id}`).update({
+    current_amount
+  });
 
 export const onceGetCampaigns = () =>
   db.ref('campaigns').once('value');
