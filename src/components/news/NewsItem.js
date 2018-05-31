@@ -4,9 +4,9 @@ import EditNews from './EditNews';
 import DeleteNews from './DeleteNews';
 import placeholder from '../../media/images/pic-placeholder.png';
 
-const NewsItem = (props) => {
+const NewsItem = props => {
   return(
-    <div className="ui grid stackable segment">
+    <div className="ui grid stackable segment news-item">
       <div className="five wide column news-pic-wrapper">
         <div className="news-pic-box">
           { 
@@ -24,9 +24,9 @@ const NewsItem = (props) => {
         <h2>{props.event.title}</h2>
         <p>{props.event.description}</p>
         <div className="news-btns">
-          <ShowNews news={props.event}/> 
-          <EditNews onUpdated={props.onUpdated} id={props.id} news={props.event}/>
-          <DeleteNews onDelete={props.onDelete} id={props.id} news={props.event}/>        
+          <ShowNews news={props.event} /> 
+          <EditNews onUpdated={props.onUpdated} id={props.id} news={props.event} />
+          <DeleteNews onDelete={props.onDelete} id={props.id} news={props.event} />        
         </div>
       </div>
     </div>

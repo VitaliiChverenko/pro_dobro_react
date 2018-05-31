@@ -4,7 +4,7 @@ import SortNews, { sortChoose } from './SortNews';
 import ItemsPagination, { paginate } from '../ItemsPagination';
 import { dbNews } from '../../firebase';
 import CreateNews from './CreateNews';
-import './news-style.css'
+import './news-style.css';
 import { Dimmer } from 'semantic-ui-react';
 
 export default class NewsList extends Component{
@@ -20,19 +20,20 @@ export default class NewsList extends Component{
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.onUpdateNews();
   }
 
   onUpdateNews = () => {
     this.setState({loading: true})
-    dbNews.onceGetNews().then(snapshot => {
-      this.setState(() => ({
-        news: snapshot.val() || {},
-        loading: false,
-        loaded: true,
-      }));
-    })
+    dbNews.onceGetNews()
+      .then(snapshot => {
+        this.setState(() => ({
+          news: snapshot.val() || {},
+          loading: false,
+          loaded: true,
+        }));
+      });
   }
 
   onDeleteNews = (key, item) => {
@@ -44,16 +45,16 @@ export default class NewsList extends Component{
 
   isEmpty = obj => Object.keys(obj).length === 0
 
-  updateSort = (value) => {
+  updateSort = value => {
     this.setState({
       sortOrder: value
-    })
+    });
   }
-
-  handleActivePage = (activePage) => {
+  
+  handleActivePage = activePage => {
     this.setState({
       activePage
-    })
+    });
   }
 
   render(){
@@ -65,12 +66,12 @@ export default class NewsList extends Component{
                         onUpdated={this.onUpdateNews}
                         event={this.state.news[key]} 
                         id={key}
-                        key={key}/>)
+                        key={key} />)
     });
     
     return(
       <div className="news-wrapper">
-        <Dimmer.Dimmable dimmed={this.state.loading} >
+        <Dimmer.Dimmable dimmed={this.state.loading}>
           { 
             this.isEmpty(this.state.news) && this.state.loaded ?
               <div className="ui container">
@@ -79,15 +80,15 @@ export default class NewsList extends Component{
                 </h2>
                 <CreateNews onCreated={this.onUpdateNews} />
               </div>
-              : 
+              :
               <div className="ui container">
                 <div className="news-nav">
-                  <CreateNews onCreated={this.onUpdateNews} />  
-                    <div className="sort-wrap">        
+                  <CreateNews onCreated={this.onUpdateNews} />
+                    <div className="sort-wrap">
                       <span>
                         Sort by:
                         {' '}
-                        <SortNews update={this.updateSort}/>
+                        <SortNews update={this.updateSort} />
                       </span>
                     </div>
                 </div>
