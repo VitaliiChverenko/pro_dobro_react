@@ -35,8 +35,8 @@ export default class NewsList extends Component{
     })
   }
 
-  onDeleteNews = (item) => {
-    dbNews.doDeleteNews(item, this.onUpdateNews);
+  onDeleteNews = (key, item) => {
+    dbNews.doDeleteNews(key, item).then(this.onUpdateNews);
     this.setState({
       activePage: 1
     });
@@ -64,6 +64,7 @@ export default class NewsList extends Component{
       return (<NewsItem onDelete={this.onDeleteNews}
                         onUpdated={this.onUpdateNews}
                         event={this.state.news[key]} 
+                        id={key}
                         key={key}/>)
     });
     

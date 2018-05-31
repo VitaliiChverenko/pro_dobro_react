@@ -12,11 +12,15 @@ class ImageUploader extends Component {
       image: '',
       imageUrl: '',
     };
-  } 
+  }
 
   handleUploadStart = () => {
+    if (this.state.image) {
+      firebase.storage.ref('images').child(this.state.image).delete()
+    }
     this.setState({isUploading: true, progress: 0});
   }
+
   handleProgress = (progress) => this.setState({progress});
   handleUploadError = (error) => {
     this.setState({isUploading: false});
@@ -34,7 +38,7 @@ class ImageUploader extends Component {
       .getDownloadURL()
       .then(url => {
         this.props.setUrl(url)
-        this.props.setName(filename)
+        this.props.setImage(filename)
       });
   };
  

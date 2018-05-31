@@ -30,7 +30,7 @@ class EditNews extends Component {
   }
 
   setImage = (image) => {
-    this.setState({image});
+    this.setState({image})
   }
 
   setInitialData = (props) => {
@@ -39,7 +39,8 @@ class EditNews extends Component {
         title: props.news.title,
         description: props.news.description,
         createdAt: props.news.createdAt,
-        imageUrl: props.news.imageUrl
+        imageUrl: props.news.imageUrl,
+        image: props.news.image
       });
     }
   }
@@ -48,18 +49,24 @@ class EditNews extends Component {
     const news = {
       title: this.state.title,
       description: this.state.description,
-      createdAt: this.state.createdAt,
       imageUrl: this.state.imageUrl,
-      image: this.state.image,
+      image: this.state.image
     }
-
-    dbNews.doCreateNews(news.createdAt, news)
+    dbNews.doEditNews(this.props.id, news)
       .then(() => {
         this.close();
         this.setState();
         this.props.onUpdated();
       })
-    }
+  }
+
+  cancelForm = () => {
+    dbNews.doDeleteNewsImg(this.state.image)
+    .then(
+      this.close(),
+      this.props.onUpdated()
+    )
+  }
 
   close = () => {
     this.setState({ showModal: false });
@@ -102,11 +109,13 @@ class EditNews extends Component {
                   />
                 </div>
               <ImageUploader setUrl={this.setUrl}
-                             setName={this.setImage}
-              />
+                             setImage={this.setImage}/>
               <Button color="green"
                       content="Edit News" 
                       disabled={!isEnabled} />
+              <Button color="red"
+                      content="Cancel"
+                      onClick={this.cancelForm} />
             </Form>
           </Modal.Description>
         </Modal.Content>
