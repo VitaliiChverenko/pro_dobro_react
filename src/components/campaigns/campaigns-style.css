@@ -16,3 +16,14 @@
   background-position: center;
   position: absolute;
 }
+.donateText{
+  position: relative;
+  top:22px;
+}
+.paypalBtn{
+  position: relative;
+  left:90px;
+}
+.inputAmount{
+  width:70px
+}
