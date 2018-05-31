@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 
-const deleteNews = (props) => {
+const deleteNews = props => {
   return (
     props.user && props.user.isAdmin ?
       <Button color='red' 
@@ -17,9 +17,3 @@ export default connect (
     user: state.auth
   })
 )(deleteNews);
-// {
-//   props.user && props.user.isAdmin ?
-//     <Button color='red' onClick={() => props.onDelete(props.id, props.event)}>Delete news</Button>
-//     :
-//     true
-// }

@@ -67,3 +67,6 @@ h2.no-news{
 .sort-wrap{
   text-align: right;
 }
+.news-item{
+  overflow: hidden;
+}

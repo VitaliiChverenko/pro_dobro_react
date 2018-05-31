@@ -1,3 +1,21 @@
+@media only screen and (max-width: 991px) {
+  .descktop-menu{
+    display: none;
+  }
+  .mobile-menu{
+    margin-top: 6px;
+    cursor: pointer;
+  }
+}
+@media only screen and (min-width: 992px){
+  .descktop-menu{
+    display: block;
+  }
+  .mobile-menu{
+    display: none;
+  }
+}
+
 .all-content {
   display: flex;
   min-height: 100vh;
@@ -81,4 +99,13 @@ text-align: justify
 .pagination-wrap{
   margin-top: 1rem;
   text-align: center;
+}
+
+.logged{
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+.ui.header-nav.segment{
+  border-radius: 0;
+  border-right: 1px solid rgba(255,255,255,.08);
 }

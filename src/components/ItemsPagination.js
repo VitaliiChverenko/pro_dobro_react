@@ -1,8 +1,8 @@
 import React from 'react';
 import { Pagination } from 'semantic-ui-react';
 
-const NewsPagination = (props) => {
-  const totalPageNumber = props.itemsArray.length / props.itemsPerPage;;
+const NewsPagination = props => {
+  const totalPageNumber = props.itemsArray.length / props.itemsPerPage;
 
   const handleActivePage = (e, {activePage}) => {
     props.updActivePage(activePage)
@@ -24,4 +24,4 @@ const paginate = (items, activePage, itemsPerPage) =>  {
 }
 
 export default NewsPagination;
-export {paginate};
+export { paginate };
